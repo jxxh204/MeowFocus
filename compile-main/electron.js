@@ -14,30 +14,61 @@ var createTray = function () {
     // .resize({ width: 16, height: 16 })
     tray = new electron_1.Tray(icon);
 };
-var toggleWindow = function () {
-    console.log("toggleWindow");
-};
 var handelTrayEvent = function () {
-    var contextMenu = electron_1.Menu.buildFromTemplate([
-        { label: "Item1", type: "radio" },
-        { label: "Item2", type: "radio" },
-        { label: "Item3", type: "radio", checked: true },
-        { label: "Item4", type: "radio" },
-    ]);
+    // const contextMenu = Menu.buildFromTemplate([
+    //   { label: "Item1", type: "radio" },
+    //   { label: "Item2", type: "radio" },
+    //   { label: "Item3", type: "radio", checked: true },
+    //   { label: "Item4", type: "radio" },
+    // ]);
     if (tray) {
         tray.setToolTip("This is my application.");
-        tray.setContextMenu(contextMenu);
+        // tray.setContextMenu(contextMenu);
         tray.on("right-click", toggleWindow);
         tray.on("double-click", toggleWindow);
-        tray.on("click", function (event) { });
+        tray.on("click", function (event) {
+            toggleWindow();
+        });
     }
 };
+var getWindowPosition = function () {
+    if (tray) {
+        var windowBounds = mainWindow === null || mainWindow === void 0 ? void 0 : mainWindow.getBounds();
+        var trayBounds = tray.getBounds();
+        // Center window horizontally below the tray icon
+        var x = Math.round(trayBounds.x + trayBounds.width / 2 - windowBounds.width / 2);
+        // Position window 4 pixels vertically below the tray icon
+        var y = Math.round(trayBounds.y + trayBounds.height + 4);
+        return { x: x, y: y };
+    }
+};
+var showWindow = function () {
+    var position = getWindowPosition();
+    mainWindow === null || mainWindow === void 0 ? void 0 : mainWindow.setPosition(position === null || position === void 0 ? void 0 : position.x, position === null || position === void 0 ? void 0 : position.y, false);
+    mainWindow === null || mainWindow === void 0 ? void 0 : mainWindow.show();
+    mainWindow === null || mainWindow === void 0 ? void 0 : mainWindow.focus();
+};
+var toggleWindow = function () {
+    if (mainWindow === null || mainWindow === void 0 ? void 0 : mainWindow.isVisible()) {
+        mainWindow === null || mainWindow === void 0 ? void 0 : mainWindow.hide();
+    }
+    else {
+        showWindow();
+    }
+};
+electron_1.ipcMain.on("show-window", function () {
+    showWindow();
+});
 var createWindow = function () {
     // browser window를 생성합니다.
     mainWindow = new electron_1.BrowserWindow({
         width: 300,
         height: 450,
+        show: false,
+        frame: false,
+        fullscreenable: false,
         resizable: false,
+        transparent: true,
         webPreferences: {
             devTools: isDev,
             // nodeIntegration: true,

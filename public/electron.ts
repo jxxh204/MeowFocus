@@ -1,5 +1,5 @@
 // main.ts
-import { BrowserWindow, app, Tray, nativeImage, Menu } from "electron";
+import { BrowserWindow, app, Tray, nativeImage, Menu, ipcMain } from "electron";
 import * as path from "path";
 import * as isDev from "electron-is-dev";
 
@@ -14,31 +14,61 @@ const createTray = () => {
   // .resize({ width: 16, height: 16 })
   tray = new Tray(icon);
 };
-const toggleWindow = () => {
-  console.log("toggleWindow");
-};
 const handelTrayEvent = () => {
-  const contextMenu = Menu.buildFromTemplate([
-    { label: "Item1", type: "radio" },
-    { label: "Item2", type: "radio" },
-    { label: "Item3", type: "radio", checked: true },
-    { label: "Item4", type: "radio" },
-  ]);
   if (tray) {
     tray.setToolTip("This is my application.");
-    tray.setContextMenu(contextMenu);
     tray.on("right-click", toggleWindow);
     tray.on("double-click", toggleWindow);
-    tray.on("click", function (event) {});
+    tray.on("click", function (event) {
+      toggleWindow();
+    });
   }
 };
+const getWindowPosition = () => {
+  if (tray) {
+    const windowBounds = mainWindow?.getBounds();
+    const trayBounds = tray.getBounds();
+
+    // Center window horizontally below the tray icon
+    const x = Math.round(
+      trayBounds.x + trayBounds.width / 2 - windowBounds.width / 2
+    );
+
+    // Position window 4 pixels vertically below the tray icon
+    const y = Math.round(trayBounds.y + trayBounds.height + 4);
+
+    return { x: x, y: y };
+  }
+};
+const showWindow = () => {
+  const position = getWindowPosition();
+  mainWindow?.setPosition(position?.x, position?.y, false);
+  mainWindow?.show();
+  mainWindow?.focus();
+};
+
+const toggleWindow = () => {
+  if (mainWindow?.isVisible()) {
+    mainWindow?.hide();
+  } else {
+    showWindow();
+  }
+};
+
+ipcMain.on("show-window", () => {
+  showWindow();
+});
 
 const createWindow = () => {
   // browser window를 생성합니다.
   mainWindow = new BrowserWindow({
     width: 300,
     height: 450,
+    show: false,
+    frame: false,
+    fullscreenable: false,
     resizable: false,
+    transparent: true,
     webPreferences: {
       devTools: isDev,
       // nodeIntegration: true,
