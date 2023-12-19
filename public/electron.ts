@@ -1,24 +1,49 @@
 // main.ts
-import { BrowserWindow, app } from "electron";
+import { BrowserWindow, app, Tray, nativeImage, Menu } from "electron";
 import * as path from "path";
 import * as isDev from "electron-is-dev";
 
 const BASE_URL = "http://localhost:3000";
-
 // BrowserWindow 객체는 전역으로 관리합니다.
 // 전역이 아닌 경우 자바스크립트 가비지 컬렉팅 발생 시 의도치 않게 browser window가 닫힐 수 있습니다.
 let mainWindow: BrowserWindow | null = null;
+let tray: Tray | null = null;
+
+const createTray = () => {
+  const icon = nativeImage.createFromPath(path.join(__dirname, "icon.png"));
+  // .resize({ width: 16, height: 16 })
+  tray = new Tray(icon);
+};
+const toggleWindow = () => {
+  console.log("toggleWindow");
+};
+const handelTrayEvent = () => {
+  const contextMenu = Menu.buildFromTemplate([
+    { label: "Item1", type: "radio" },
+    { label: "Item2", type: "radio" },
+    { label: "Item3", type: "radio", checked: true },
+    { label: "Item4", type: "radio" },
+  ]);
+  if (tray) {
+    tray.setToolTip("This is my application.");
+    tray.setContextMenu(contextMenu);
+    tray.on("right-click", toggleWindow);
+    tray.on("double-click", toggleWindow);
+    tray.on("click", function (event) {});
+  }
+};
 
 const createWindow = () => {
   // browser window를 생성합니다.
   mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
-    resizable: true,
+    width: 300,
+    height: 450,
+    resizable: false,
     webPreferences: {
       devTools: isDev,
-      nodeIntegration: true,
+      // nodeIntegration: true,
       preload: path.join(__dirname, "preload.js"),
+      backgroundThrottling: false,
     },
   });
 
@@ -35,9 +60,11 @@ const createWindow = () => {
 
 // Electron이 준비되면 whenReady 메서드가 호출되어,
 // 초기화 및 browser window를 생성합니다.
+
 app.whenReady().then(() => {
   createWindow();
-
+  createTray();
+  handelTrayEvent();
   // Linux와 Winodws 앱은 browser window가 열려 있지 않을 때 종료됩니다.
   // macOS는 browser window가 열려 있지 않아도 계속 실행되기 때문에,
   // browser window가 열려 있지 않을 때 앱을 활성화 하면 새로운 browser window를 열어줍니다.

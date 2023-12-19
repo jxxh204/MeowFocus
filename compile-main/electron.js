@@ -8,16 +8,41 @@ var BASE_URL = "http://localhost:3000";
 // BrowserWindow 객체는 전역으로 관리합니다.
 // 전역이 아닌 경우 자바스크립트 가비지 컬렉팅 발생 시 의도치 않게 browser window가 닫힐 수 있습니다.
 var mainWindow = null;
+var tray = null;
+var createTray = function () {
+    var icon = electron_1.nativeImage.createFromPath(path.join(__dirname, "icon.png"));
+    // .resize({ width: 16, height: 16 })
+    tray = new electron_1.Tray(icon);
+};
+var toggleWindow = function () {
+    console.log("toggleWindow");
+};
+var handelTrayEvent = function () {
+    var contextMenu = electron_1.Menu.buildFromTemplate([
+        { label: "Item1", type: "radio" },
+        { label: "Item2", type: "radio" },
+        { label: "Item3", type: "radio", checked: true },
+        { label: "Item4", type: "radio" },
+    ]);
+    if (tray) {
+        tray.setToolTip("This is my application.");
+        tray.setContextMenu(contextMenu);
+        tray.on("right-click", toggleWindow);
+        tray.on("double-click", toggleWindow);
+        tray.on("click", function (event) { });
+    }
+};
 var createWindow = function () {
     // browser window를 생성합니다.
     mainWindow = new electron_1.BrowserWindow({
-        width: 800,
-        height: 600,
-        resizable: true,
+        width: 300,
+        height: 450,
+        resizable: false,
         webPreferences: {
             devTools: isDev,
-            nodeIntegration: true,
-            preload: path.join(__dirname, "preload.js")
+            // nodeIntegration: true,
+            preload: path.join(__dirname, "preload.js"),
+            backgroundThrottling: false
         }
     });
     // 앱의 index.html을 로드합니다.
@@ -35,6 +60,8 @@ var createWindow = function () {
 // 초기화 및 browser window를 생성합니다.
 electron_1.app.whenReady().then(function () {
     createWindow();
+    createTray();
+    handelTrayEvent();
     // Linux와 Winodws 앱은 browser window가 열려 있지 않을 때 종료됩니다.
     // macOS는 browser window가 열려 있지 않아도 계속 실행되기 때문에,
     // browser window가 열려 있지 않을 때 앱을 활성화 하면 새로운 browser window를 열어줍니다.
