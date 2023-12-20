@@ -30,19 +30,21 @@ const getWindowPosition = () => {
     const trayBounds = tray.getBounds();
 
     // Center window horizontally below the tray icon
-    const x = Math.round(
-      trayBounds.x + trayBounds.width / 2 - windowBounds.width / 2
-    );
+    if (windowBounds) {
+      const x = Math.round(
+        trayBounds.x + trayBounds.width / 2 - windowBounds.width / 2
+      );
 
-    // Position window 4 pixels vertically below the tray icon
-    const y = Math.round(trayBounds.y + trayBounds.height + 4);
+      // Position window 4 pixels vertically below the tray icon
+      const y = Math.round(trayBounds.y + trayBounds.height + 4);
 
-    return { x: x, y: y };
+      return { x: x, y: y };
+    }
   }
 };
 const showWindow = () => {
   const position = getWindowPosition();
-  mainWindow?.setPosition(position?.x, position?.y, false);
+  if (position) mainWindow?.setPosition(position?.x, position?.y, false);
   mainWindow?.show();
   mainWindow?.focus();
 };
@@ -64,14 +66,14 @@ const createWindow = () => {
   mainWindow = new BrowserWindow({
     width: 300,
     height: 450,
-    show: true,
+    show: false,
     frame: false,
     fullscreenable: false,
     resizable: false,
     transparent: true,
     // minWidth: 1281,
     // minHeight: 800,
-    // backgroundColor: '#312450',
+    backgroundColor: "white",
     icon: path.join(__dirname, "AppIcon.jpg"),
     webPreferences: {
       devTools: isDev,
@@ -98,6 +100,7 @@ const createWindow = () => {
 
 app.whenReady().then(() => {
   createWindow();
+  // showWindow();
   createTray();
   handelTrayEvent();
   // Linux와 Winodws 앱은 browser window가 열려 있지 않을 때 종료됩니다.
