@@ -5,7 +5,7 @@ const AddStyle = styled.div`
   height: 100%;
   background: #f6f6f6;
   border: 1px solid #f6f6f6;
-  border-radius: 19px;
+  border-radius: 12px;
   padding: 10px 0;
   cursor: pointer;
   display: flex;
