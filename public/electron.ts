@@ -64,11 +64,15 @@ const createWindow = () => {
   mainWindow = new BrowserWindow({
     width: 300,
     height: 450,
-    show: false,
+    show: true,
     frame: false,
     fullscreenable: false,
     resizable: false,
     transparent: true,
+    // minWidth: 1281,
+    // minHeight: 800,
+    // backgroundColor: '#312450',
+    icon: path.join(__dirname, "AppIcon.jpg"),
     webPreferences: {
       devTools: isDev,
       // nodeIntegration: true,
@@ -84,7 +88,8 @@ const createWindow = () => {
     mainWindow.webContents.openDevTools({ mode: "detach" }); // DevTools를 엽니다.
   } else {
     // 프로덕션 모드인 경우
-    mainWindow.loadFile(path.join(__dirname, "./build/index.html")); //
+    mainWindow.loadURL(`file://${path.join("index.html")}`);
+    // mainWindow.loadFile(path.join("/build/index.html")); //
   }
 };
 

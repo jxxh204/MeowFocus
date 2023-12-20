@@ -15,15 +15,8 @@ var createTray = function () {
     tray = new electron_1.Tray(icon);
 };
 var handelTrayEvent = function () {
-    // const contextMenu = Menu.buildFromTemplate([
-    //   { label: "Item1", type: "radio" },
-    //   { label: "Item2", type: "radio" },
-    //   { label: "Item3", type: "radio", checked: true },
-    //   { label: "Item4", type: "radio" },
-    // ]);
     if (tray) {
         tray.setToolTip("This is my application.");
-        // tray.setContextMenu(contextMenu);
         tray.on("right-click", toggleWindow);
         tray.on("double-click", toggleWindow);
         tray.on("click", function (event) {
@@ -64,11 +57,15 @@ var createWindow = function () {
     mainWindow = new electron_1.BrowserWindow({
         width: 300,
         height: 450,
-        show: false,
+        show: true,
         frame: false,
         fullscreenable: false,
         resizable: false,
         transparent: true,
+        // minWidth: 1281,
+        // minHeight: 800,
+        // backgroundColor: '#312450',
+        icon: path.join(__dirname, "AppIcon.jpg"),
         webPreferences: {
             devTools: isDev,
             // nodeIntegration: true,
@@ -84,7 +81,8 @@ var createWindow = function () {
     }
     else {
         // 프로덕션 모드인 경우
-        mainWindow.loadFile(path.join(__dirname, "./build/index.html")); //
+        mainWindow.loadURL("file://".concat(path.join("index.html")));
+        // mainWindow.loadFile(path.join("/build/index.html")); //
     }
 };
 // Electron이 준비되면 whenReady 메서드가 호출되어,
