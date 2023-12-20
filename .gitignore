@@ -7,7 +7,7 @@
 /dist
 /compile-main
 /build
-
+/public/*.js
 # testing
 /coverage
 

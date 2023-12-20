@@ -29,15 +29,18 @@ var getWindowPosition = function () {
         var windowBounds = mainWindow === null || mainWindow === void 0 ? void 0 : mainWindow.getBounds();
         var trayBounds = tray.getBounds();
         // Center window horizontally below the tray icon
-        var x = Math.round(trayBounds.x + trayBounds.width / 2 - windowBounds.width / 2);
-        // Position window 4 pixels vertically below the tray icon
-        var y = Math.round(trayBounds.y + trayBounds.height + 4);
-        return { x: x, y: y };
+        if (windowBounds) {
+            var x = Math.round(trayBounds.x + trayBounds.width / 2 - windowBounds.width / 2);
+            // Position window 4 pixels vertically below the tray icon
+            var y = Math.round(trayBounds.y + trayBounds.height + 4);
+            return { x: x, y: y };
+        }
     }
 };
 var showWindow = function () {
     var position = getWindowPosition();
-    mainWindow === null || mainWindow === void 0 ? void 0 : mainWindow.setPosition(position === null || position === void 0 ? void 0 : position.x, position === null || position === void 0 ? void 0 : position.y, false);
+    if (position)
+        mainWindow === null || mainWindow === void 0 ? void 0 : mainWindow.setPosition(position === null || position === void 0 ? void 0 : position.x, position === null || position === void 0 ? void 0 : position.y, false);
     mainWindow === null || mainWindow === void 0 ? void 0 : mainWindow.show();
     mainWindow === null || mainWindow === void 0 ? void 0 : mainWindow.focus();
 };
@@ -57,14 +60,14 @@ var createWindow = function () {
     mainWindow = new electron_1.BrowserWindow({
         width: 300,
         height: 450,
-        show: true,
+        show: false,
         frame: false,
         fullscreenable: false,
         resizable: false,
         transparent: true,
         // minWidth: 1281,
         // minHeight: 800,
-        // backgroundColor: '#312450',
+        backgroundColor: "white",
         icon: path.join(__dirname, "AppIcon.jpg"),
         webPreferences: {
             devTools: isDev,
@@ -89,6 +92,7 @@ var createWindow = function () {
 // 초기화 및 browser window를 생성합니다.
 electron_1.app.whenReady().then(function () {
     createWindow();
+    // showWindow();
     createTray();
     handelTrayEvent();
     // Linux와 Winodws 앱은 browser window가 열려 있지 않을 때 종료됩니다.
