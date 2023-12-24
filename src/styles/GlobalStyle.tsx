@@ -17,7 +17,10 @@ const GlobalStyle = createGlobalStyle`
     top: 0;
     left: 0;
     /* 테마 적용할때 제거 */
-    background-color: white;
+    /* background-color: white; */
+    background: rgba(255, 255, 255, 0.6);
+    background-size: cover;
+    
     font-family: "Pretendard-Regular";
     color: ${({ theme }) => theme.color.darkGray};
   }

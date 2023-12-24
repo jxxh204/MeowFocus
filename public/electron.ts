@@ -70,11 +70,13 @@ const createWindow = () => {
     frame: false,
     fullscreenable: false,
     resizable: false,
-    transparent: true,
+    transparent: false,
     // minWidth: 1281,
     // minHeight: 800,
+    // icon: path.join(__dirname, "AppIcon.jpg"),
     // backgroundColor: "white",
-    icon: path.join(__dirname, "AppIcon.jpg"),
+    vibrancy: "popover", // in my case...
+    // visualEffectState: "active",
     webPreferences: {
       devTools: isDev,
       // nodeIntegration: true,

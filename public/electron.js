@@ -64,11 +64,13 @@ var createWindow = function () {
         frame: false,
         fullscreenable: false,
         resizable: false,
-        transparent: true,
+        transparent: false,
         // minWidth: 1281,
         // minHeight: 800,
+        // icon: path.join(__dirname, "AppIcon.jpg"),
         // backgroundColor: "white",
-        icon: path.join(__dirname, "AppIcon.jpg"),
+        vibrancy: "popover",
+        // visualEffectState: "active",
         webPreferences: {
             devTools: isDev,
             // nodeIntegration: true,
@@ -76,7 +78,9 @@ var createWindow = function () {
             backgroundThrottling: false
         }
     });
+    // 항상 위
     mainWindow.setAlwaysOnTop(true, "screen-saver");
+    // 화면 변경하더라도 항상 위
     mainWindow.setVisibleOnAllWorkspaces(true);
     // 앱의 index.html을 로드합니다.
     if (isDev) {
