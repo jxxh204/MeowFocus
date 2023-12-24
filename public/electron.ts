@@ -73,7 +73,7 @@ const createWindow = () => {
     transparent: true,
     // minWidth: 1281,
     // minHeight: 800,
-    backgroundColor: "white",
+    // backgroundColor: "white",
     icon: path.join(__dirname, "AppIcon.jpg"),
     webPreferences: {
       devTools: isDev,
@@ -82,6 +82,10 @@ const createWindow = () => {
       backgroundThrottling: false,
     },
   });
+  // 항상 위
+  mainWindow.setAlwaysOnTop(true, "screen-saver");
+  // 화면 변경하더라도 항상 위
+  mainWindow.setVisibleOnAllWorkspaces(true);
 
   // 앱의 index.html을 로드합니다.
   if (isDev) {

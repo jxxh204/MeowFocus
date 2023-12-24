@@ -67,7 +67,7 @@ var createWindow = function () {
         transparent: true,
         // minWidth: 1281,
         // minHeight: 800,
-        backgroundColor: "white",
+        // backgroundColor: "white",
         icon: path.join(__dirname, "AppIcon.jpg"),
         webPreferences: {
             devTools: isDev,
@@ -76,6 +76,8 @@ var createWindow = function () {
             backgroundThrottling: false
         }
     });
+    mainWindow.setAlwaysOnTop(true, "screen-saver");
+    mainWindow.setVisibleOnAllWorkspaces(true);
     // 앱의 index.html을 로드합니다.
     if (isDev) {
         // 개발 모드인 경우
