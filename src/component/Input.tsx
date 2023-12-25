@@ -8,8 +8,8 @@ const InputStyle = styled.input`
   align-items: center;
   background: ${({ theme }) => theme.color.main};
   border: 1px solid ${({ theme }) => theme.color.main};
-  border-radius: 12px;
-  padding: 15px 0;
+  border-radius: 8px;
+  padding: 12px;
   font-size: medium;
   font-weight: bold;
 `;

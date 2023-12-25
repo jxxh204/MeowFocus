@@ -2,6 +2,7 @@
 
 const color = {
   main: "#D9D9D9",
+  backgroud: "#F6F6F6",
 };
 const theme = { color };
 

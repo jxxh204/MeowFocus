@@ -60,16 +60,22 @@ const toggleWindow = () => {
 ipcMain.on("show-window", () => {
   showWindow();
 });
+ipcMain.on("add-done", () => {
+  // showWindow();
+});
 
 const createWindow = () => {
   // browser window를 생성합니다.
   mainWindow = new BrowserWindow({
     width: 300,
-    height: 450,
+    height: 70,
+    minHeight: 50,
+    maxHeight: 900,
     show: false,
     frame: false,
     fullscreenable: false,
     resizable: false,
+    movable: false,
     transparent: false,
     // minWidth: 1281,
     // minHeight: 800,

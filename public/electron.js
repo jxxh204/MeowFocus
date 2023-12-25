@@ -55,15 +55,21 @@ var toggleWindow = function () {
 electron_1.ipcMain.on("show-window", function () {
     showWindow();
 });
+electron_1.ipcMain.on("add-done", function () {
+    // showWindow();
+});
 var createWindow = function () {
     // browser window를 생성합니다.
     mainWindow = new electron_1.BrowserWindow({
         width: 300,
-        height: 450,
+        height: 70,
+        minHeight: 50,
+        maxHeight: 900,
         show: false,
         frame: false,
         fullscreenable: false,
         resizable: false,
+        movable: false,
         transparent: false,
         // minWidth: 1281,
         // minHeight: 800,

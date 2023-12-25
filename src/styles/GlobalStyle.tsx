@@ -22,14 +22,14 @@ const GlobalStyle = createGlobalStyle`
     background-size: cover;
     
     font-family: "Pretendard-Regular";
-    color: ${({ theme }) => theme.color.darkGray};
+    color: ${({ theme }) => theme.color.backgroud};
   }
   .App {
+    /* width: 100%; */
     display: flex;
     flex-direction: column;
-    align-items: center;
-    padding:15px;
-    gap:10px
+    padding:12px;
+    /* gap:10px */
   }
   html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,

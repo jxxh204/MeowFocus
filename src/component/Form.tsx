@@ -5,6 +5,8 @@ import Input from "./Input";
 const StyleForm = styled.form`
   display: flex;
   flex-direction: row;
+  /* justify-content: center; */
+  gap: 10px;
 `;
 type Props = {
   children: React.ReactNode;

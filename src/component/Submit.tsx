@@ -1,12 +1,10 @@
 import styled from "styled-components";
 
 const SubmitStyle = styled.input`
-  width: 100%;
-  height: 100%;
   background: #f6f6f6;
   border: 1px solid #f6f6f6;
-  border-radius: 12px;
-  padding: 10px 0;
+  border-radius: 8px;
+  padding: 12px;
   cursor: pointer;
   display: flex;
   flex-direction: row;
