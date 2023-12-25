@@ -1,15 +1,15 @@
 import React from "react";
-import Title from "./component/Title";
-import TodoList from "./component/TodoList";
+import useTask from "./hooks/useTask";
+import Form from "./component/Form";
 
 function App() {
+  const { text, isFocus, textHandler, handleSubmit } = useTask();
   return (
     <div className="App">
-      <Title />
-      <TodoList>
-        <TodoList.Todo />
-        <TodoList.Add />
-      </TodoList>
+      <Form handler={handleSubmit}>
+        <Form.Input text={text} focus={isFocus} handleChange={textHandler} />
+        <Form.Submit />
+      </Form>
     </div>
   );
 }
