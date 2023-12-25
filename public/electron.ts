@@ -19,9 +19,7 @@ const handelTrayEvent = () => {
     tray.setToolTip("This is my application.");
     tray.on("right-click", toggleWindow);
     tray.on("double-click", toggleWindow);
-    tray.on("click", function (event) {
-      toggleWindow();
-    });
+    tray.on("click", toggleWindow);
   }
 };
 const getWindowPosition = () => {
@@ -47,6 +45,18 @@ const showWindow = () => {
   if (position) mainWindow?.setPosition(position?.x, position?.y, false);
   mainWindow?.show();
   mainWindow?.focus();
+};
+const handleWindow = () => {
+  if (mainWindow) {
+    // 항상 위
+    mainWindow.setAlwaysOnTop(true, "screen-saver");
+    // 화면 변경하더라도 항상 위
+    mainWindow.setVisibleOnAllWorkspaces(true);
+    // 포커스를 잃었을 경우
+    mainWindow.on("blur", () => {
+      mainWindow?.hide();
+    });
+  }
 };
 
 const toggleWindow = () => {
@@ -82,7 +92,7 @@ const createWindow = () => {
     // icon: path.join(__dirname, "AppIcon.jpg"),
     // backgroundColor: "white",
     vibrancy: "popover", // in my case...
-    // visualEffectState: "active",
+    visualEffectState: "followWindow",
     webPreferences: {
       devTools: isDev,
       // nodeIntegration: true,
@@ -90,10 +100,6 @@ const createWindow = () => {
       backgroundThrottling: false,
     },
   });
-  // 항상 위
-  mainWindow.setAlwaysOnTop(true, "screen-saver");
-  // 화면 변경하더라도 항상 위
-  mainWindow.setVisibleOnAllWorkspaces(true);
 
   // 앱의 index.html을 로드합니다.
   if (isDev) {
@@ -112,7 +118,8 @@ const createWindow = () => {
 
 app.whenReady().then(() => {
   createWindow();
-  // showWindow();
+  handleWindow();
+
   createTray();
   handelTrayEvent();
   // Linux와 Winodws 앱은 browser window가 열려 있지 않을 때 종료됩니다.

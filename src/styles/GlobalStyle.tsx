@@ -9,17 +9,20 @@ const GlobalStyle = createGlobalStyle`
     font-weight: 400;
     font-style: normal;
 }
-
+  body {
+    width: 100%;
+    height: 100%;
+  }
   #root {
-    position: absolute;
+    position: relative;
     width: 100%;
     height: 100%;
     top: 0;
     left: 0;
     /* 테마 적용할때 제거 */
     /* background-color: white; */
-    background: rgba(255, 255, 255, 0.6);
-    background-size: cover;
+    /* background: rgba(255, 255, 255, 0.9); */
+    /* background-size: cover; */
     
     font-family: "Pretendard-Regular";
     color: ${({ theme }) => theme.color.backgroud};

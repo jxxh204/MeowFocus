@@ -19,9 +19,7 @@ var handelTrayEvent = function () {
         tray.setToolTip("This is my application.");
         tray.on("right-click", toggleWindow);
         tray.on("double-click", toggleWindow);
-        tray.on("click", function (event) {
-            toggleWindow();
-        });
+        tray.on("click", toggleWindow);
     }
 };
 var getWindowPosition = function () {
@@ -43,6 +41,18 @@ var showWindow = function () {
         mainWindow === null || mainWindow === void 0 ? void 0 : mainWindow.setPosition(position === null || position === void 0 ? void 0 : position.x, position === null || position === void 0 ? void 0 : position.y, false);
     mainWindow === null || mainWindow === void 0 ? void 0 : mainWindow.show();
     mainWindow === null || mainWindow === void 0 ? void 0 : mainWindow.focus();
+};
+var handleWindow = function () {
+    if (mainWindow) {
+        // 항상 위
+        mainWindow.setAlwaysOnTop(true, "screen-saver");
+        // 화면 변경하더라도 항상 위
+        mainWindow.setVisibleOnAllWorkspaces(true);
+        // 포커스를 잃었을 경우
+        mainWindow.on("blur", function () {
+            mainWindow === null || mainWindow === void 0 ? void 0 : mainWindow.hide();
+        });
+    }
 };
 var toggleWindow = function () {
     if (mainWindow === null || mainWindow === void 0 ? void 0 : mainWindow.isVisible()) {
@@ -76,7 +86,7 @@ var createWindow = function () {
         // icon: path.join(__dirname, "AppIcon.jpg"),
         // backgroundColor: "white",
         vibrancy: "popover",
-        // visualEffectState: "active",
+        visualEffectState: "followWindow",
         webPreferences: {
             devTools: isDev,
             // nodeIntegration: true,
@@ -84,10 +94,6 @@ var createWindow = function () {
             backgroundThrottling: false
         }
     });
-    // 항상 위
-    mainWindow.setAlwaysOnTop(true, "screen-saver");
-    // 화면 변경하더라도 항상 위
-    mainWindow.setVisibleOnAllWorkspaces(true);
     // 앱의 index.html을 로드합니다.
     if (isDev) {
         // 개발 모드인 경우
@@ -104,7 +110,7 @@ var createWindow = function () {
 // 초기화 및 browser window를 생성합니다.
 electron_1.app.whenReady().then(function () {
     createWindow();
-    // showWindow();
+    handleWindow();
     createTray();
     handelTrayEvent();
     // Linux와 Winodws 앱은 browser window가 열려 있지 않을 때 종료됩니다.
