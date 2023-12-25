@@ -28,6 +28,7 @@ function Input({ text, focus, handleChange }: Props) {
       onChange={handleChange}
       type="text"
       placeholder="지금 집중할 일을 적어주세요."
+      data-testid="inputText"
     />
   );
 }

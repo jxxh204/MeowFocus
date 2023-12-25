@@ -8,7 +8,7 @@ function App() {
     <div className="App">
       <Form handler={handleSubmit}>
         <Form.Input text={text} focus={isFocus} handleChange={textHandler} />
-        <Form.Submit />
+        <Form.Submit focus={isFocus} />
       </Form>
     </div>
   );

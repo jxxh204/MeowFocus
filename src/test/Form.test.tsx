@@ -24,31 +24,57 @@ describe("Form Test", () => {
     return { textHandler, ...utils };
   };
 
-  test("텍스트 박스 입력", () => {
-    setup();
-    const textInput =
-      screen.getByPlaceholderText("지금 집중할 일을 적어주세요.");
-
-    userEvent.type(textInput, "면접 공부");
-    expect(textInput).toHaveValue("면접 공부");
-  });
-
-  test("텍스트 박스 입력 완료 / 텍스트 박스 비활성화", () => {
+  test("Task Input", () => {
     setup();
 
-    const textInput =
+    const inputText =
       screen.getByPlaceholderText("지금 집중할 일을 적어주세요.");
-    const submitButton = screen.getByTestId("입력");
+    const submitButton = screen.getByText("입력");
 
-    userEvent.type(textInput, "면접 공부");
-    expect(textInput).toHaveValue("면접 공부");
+    userEvent.type(inputText, "면접 공부");
+    expect(inputText).toHaveValue("면접 공부");
 
     userEvent.click(submitButton);
 
     //결과
-    expect(textInput).toHaveValue("면접 공부");
-    expect(textInput).toBeDisabled();
+    expect(inputText).toHaveValue("면접 공부");
+    expect(inputText).toBeDisabled();
+    expect(submitButton).not.toBeVisible();
   });
+
+  test("Task Edit", () => {
+    setup();
+    // 반복코드 줄이기
+    const inputText = screen.getByTestId("inputText");
+    const submitButton = screen.getByText("입력");
+
+    userEvent.type(inputText, "면접 공부");
+    expect(inputText).toHaveValue("면접 공부");
+
+    userEvent.click(submitButton);
+
+    //결과
+    expect(inputText).toHaveValue("면접 공부");
+    expect(inputText).toBeDisabled();
+    // 반복코드 줄이기
+
+    userEvent.hover(inputText);
+    const editButton = screen.getByText("수정");
+    userEvent.click(editButton);
+
+    expect(editButton).not.toBeVisible();
+    expect(inputText).not.toBeDisabled();
+    expect(inputText).toHaveValue("면접 공부");
+
+    userEvent.type(inputText, "수정된 텍스트");
+
+    expect(inputText).toHaveValue("수정된 텍스트");
+    userEvent.click(submitButton);
+
+    expect(inputText).toBeDisabled();
+  });
+  test("Task Delete", () => {});
+  test("Task Create", () => {});
 });
 
 //1. text input 빈공간 placeholder : 지금 집중할 일을 적어주세요.

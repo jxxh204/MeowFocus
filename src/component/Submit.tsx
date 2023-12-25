@@ -11,8 +11,9 @@ const SubmitStyle = styled.input`
   justify-content: center;
 `;
 
-function Submit() {
-  return <SubmitStyle type="submit" data-testid="입력" />;
+function Submit({ focus }: { focus: boolean }) {
+  if (!focus) return <SubmitStyle type="submit" value="입력" />;
+  return null;
 }
 
 export default Submit;
