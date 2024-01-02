@@ -14,10 +14,11 @@ var createTray = function () {
     // .resize({ width: 16, height: 16 })
     tray = new electron_1.Tray(icon);
 };
+var showMenu = function () { };
 var handelTrayEvent = function () {
     if (tray) {
         tray.setToolTip("This is my application.");
-        tray.on("right-click", toggleWindow);
+        tray.on("right-click", showMenu);
         tray.on("double-click", toggleWindow);
         tray.on("click", toggleWindow);
     }
@@ -81,8 +82,6 @@ var createWindow = function () {
         resizable: false,
         movable: false,
         transparent: false,
-        // minWidth: 1281,
-        // minHeight: 800,
         icon: path.join(__dirname, "icon.png"),
         // backgroundColor: "white",
         vibrancy: "popover",
@@ -94,6 +93,7 @@ var createWindow = function () {
             backgroundThrottling: false
         }
     });
+    showWindow();
     // 앱의 index.html을 로드합니다.
     if (isDev) {
         // 개발 모드인 경우
@@ -108,22 +108,28 @@ var createWindow = function () {
 };
 // Electron이 준비되면 whenReady 메서드가 호출되어,
 // 초기화 및 browser window를 생성합니다.
-electron_1.app.whenReady().then(function () {
+var appReady = function () {
     createWindow();
     handleWindow();
     createTray();
     handelTrayEvent();
-    // Linux와 Winodws 앱은 browser window가 열려 있지 않을 때 종료됩니다.
-    // macOS는 browser window가 열려 있지 않아도 계속 실행되기 때문에,
-    // browser window가 열려 있지 않을 때 앱을 활성화 하면 새로운 browser window를 열어줍니다.
-    electron_1.app.on("activate", function () {
-        if (electron_1.BrowserWindow.getAllWindows().length === 0) {
-            createWindow();
-        }
-    });
+    mainWindow === null || mainWindow === void 0 ? void 0 : mainWindow.setMenu(null);
+    // globalShortcut.register("CommandOrControl+W", () => {
+    //   // Prevent the default behavior
+    //   console.log("CommandOrControl+W is disabled");
+    // });
+};
+electron_1.app.whenReady().then(appReady);
+electron_1.app.on("activate", function () {
+    if (electron_1.BrowserWindow.getAllWindows().length === 0) {
+        appReady();
+    }
 });
 // Linux와 Winodws에서는 모든 창을 종료하면 일반적으로 앱이 완전히 종료됩니다.
 // macOS(darwin)가 아닌 경우, 'window-all-closed' 이벤트가 발생했을 때, 앱을 종료합니다.
+electron_1.app.on("will-quit", function () {
+    electron_1.globalShortcut.unregister("CommandOrControl+W");
+});
 electron_1.app.on("window-all-closed", function () {
     if (process.platform !== "darwin") {
         electron_1.app.quit();

@@ -1,5 +1,13 @@
 // main.ts
-import { BrowserWindow, app, Tray, nativeImage, Menu, ipcMain } from "electron";
+import {
+  BrowserWindow,
+  app,
+  Tray,
+  nativeImage,
+  Menu,
+  ipcMain,
+  globalShortcut,
+} from "electron";
 import * as path from "path";
 import * as isDev from "electron-is-dev";
 
@@ -14,10 +22,11 @@ const createTray = () => {
   // .resize({ width: 16, height: 16 })
   tray = new Tray(icon);
 };
+const showMenu = () => {};
 const handelTrayEvent = () => {
   if (tray) {
     tray.setToolTip("This is my application.");
-    tray.on("right-click", toggleWindow);
+    tray.on("right-click", showMenu);
     tray.on("double-click", toggleWindow);
     tray.on("click", toggleWindow);
   }
@@ -87,8 +96,6 @@ const createWindow = () => {
     resizable: false,
     movable: false,
     transparent: false,
-    // minWidth: 1281,
-    // minHeight: 800,
     icon: path.join(__dirname, "icon.png"),
     // backgroundColor: "white",
     vibrancy: "popover", // in my case...
@@ -100,6 +107,7 @@ const createWindow = () => {
       backgroundThrottling: false,
     },
   });
+  showWindow();
 
   // 앱의 index.html을 로드합니다.
   if (isDev) {
@@ -116,24 +124,29 @@ const createWindow = () => {
 // Electron이 준비되면 whenReady 메서드가 호출되어,
 // 초기화 및 browser window를 생성합니다.
 
-app.whenReady().then(() => {
+const appReady = () => {
   createWindow();
   handleWindow();
-
   createTray();
   handelTrayEvent();
-  // Linux와 Winodws 앱은 browser window가 열려 있지 않을 때 종료됩니다.
-  // macOS는 browser window가 열려 있지 않아도 계속 실행되기 때문에,
-  // browser window가 열려 있지 않을 때 앱을 활성화 하면 새로운 browser window를 열어줍니다.
-  app.on("activate", () => {
-    if (BrowserWindow.getAllWindows().length === 0) {
-      createWindow();
-    }
+
+  globalShortcut.register("CommandOrControl+W", () => {
+    // Prevent the default behavior
+    console.log("CommandOrControl+W is disabled");
   });
+};
+app.whenReady().then(appReady);
+app.on("activate", () => {
+  if (BrowserWindow.getAllWindows().length === 0) {
+    appReady();
+  }
 });
 
 // Linux와 Winodws에서는 모든 창을 종료하면 일반적으로 앱이 완전히 종료됩니다.
 // macOS(darwin)가 아닌 경우, 'window-all-closed' 이벤트가 발생했을 때, 앱을 종료합니다.
+app.on("will-quit", () => {
+  globalShortcut.unregister("CommandOrControl+W");
+});
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
     app.quit();
