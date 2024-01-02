@@ -10,7 +10,7 @@ var BASE_URL = "http://localhost:3000";
 var mainWindow = null;
 var tray = null;
 var createTray = function () {
-    var icon = electron_1.nativeImage.createFromPath(path.join(__dirname, "icon.png"));
+    var icon = electron_1.nativeImage.createFromPath(path.join(__dirname, "tray.png"));
     // .resize({ width: 16, height: 16 })
     tray = new electron_1.Tray(icon);
 };
@@ -83,7 +83,7 @@ var createWindow = function () {
         transparent: false,
         // minWidth: 1281,
         // minHeight: 800,
-        // icon: path.join(__dirname, "AppIcon.jpg"),
+        icon: path.join(__dirname, "icon.png"),
         // backgroundColor: "white",
         vibrancy: "popover",
         visualEffectState: "followWindow",
@@ -102,8 +102,8 @@ var createWindow = function () {
     }
     else {
         // 프로덕션 모드인 경우
-        mainWindow.loadURL("file://".concat(path.join("index.html")));
-        // mainWindow.loadFile(path.join("/build/index.html")); //
+        // mainWindow.loadURL(`file://${path.join("./index.html")}`);
+        mainWindow.loadURL("file://".concat(__dirname, "/index.html"));
     }
 };
 // Electron이 준비되면 whenReady 메서드가 호출되어,

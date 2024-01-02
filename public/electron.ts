@@ -10,7 +10,7 @@ let mainWindow: BrowserWindow | null = null;
 let tray: Tray | null = null;
 
 const createTray = () => {
-  const icon = nativeImage.createFromPath(path.join(__dirname, "icon.png"));
+  const icon = nativeImage.createFromPath(path.join(__dirname, "tray.png"));
   // .resize({ width: 16, height: 16 })
   tray = new Tray(icon);
 };
@@ -89,7 +89,7 @@ const createWindow = () => {
     transparent: false,
     // minWidth: 1281,
     // minHeight: 800,
-    // icon: path.join(__dirname, "AppIcon.jpg"),
+    icon: path.join(__dirname, "icon.png"),
     // backgroundColor: "white",
     vibrancy: "popover", // in my case...
     visualEffectState: "followWindow",
@@ -108,8 +108,8 @@ const createWindow = () => {
     mainWindow.webContents.openDevTools({ mode: "detach" }); // DevTools를 엽니다.
   } else {
     // 프로덕션 모드인 경우
-    mainWindow.loadURL(`file://${path.join("index.html")}`);
-    // mainWindow.loadFile(path.join("/build/index.html")); //
+    // mainWindow.loadURL(`file://${path.join("./index.html")}`);
+    mainWindow.loadURL(`file://${__dirname}/index.html`);
   }
 };
 

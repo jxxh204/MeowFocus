@@ -62,22 +62,24 @@
     "wait-on": "^7.2.0"
   },
   "build": {
-    "productName": "rutin-cat",
-    "appId": "rutin-cat",
+    "productName": "FocusNeow",
+    "appId": "FocusNeow",
     "asar": true,
     "protocols": {
-      "name": "RutinCat",
+      "name": "FocusNeow",
       "schemes": [
-        "RutinCat"
+        "FocusNeow"
       ]
     },
     "mac": {
       "target": [
         "default"
-      ]
+      ],
+      "icon": "./public/icon.png"
     },
     "dmg": {
-      "title": "tournant"
+      "title": "FocusNeow",
+      "icon": "./public/icon.png"
     },
     "directories": {
       "output": "dist/",
