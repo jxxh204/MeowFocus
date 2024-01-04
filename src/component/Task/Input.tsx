@@ -18,16 +18,19 @@ type Props = {
   text: string;
   focus: boolean;
   handleChange: React.ChangeEventHandler<HTMLInputElement>;
+  handleClick: React.FocusEventHandler<HTMLInputElement>;
 };
 
-function Input({ text, focus, handleChange }: Props) {
+function Input({ text, focus, handleChange, handleClick }: Props) {
   return (
     <InputStyle
       value={text}
       disabled={focus}
       onChange={handleChange}
+      onFocus={handleClick}
+      onBlur={handleClick}
       type="text"
-      placeholder="지금 집중할 일을 적어주세요."
+      placeholder="집중이 필요한 일 한가지를 적어주세요."
     />
   );
 }

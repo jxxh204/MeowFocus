@@ -1,21 +1,23 @@
 import styled from "styled-components";
 import Input from "./Input";
-import Submit from "./Submit";
+import Bottom from "./Bottom";
 import { StyleHover } from "../Hover";
 
 type Props = {
   children: React.ReactNode;
+  isClick: boolean;
   focus: boolean;
   handler: React.FormEventHandler<HTMLFormElement>;
 };
 type StyleFromProps = {
   focusMode: boolean;
+  isClick: boolean;
 };
 const StyleForm = styled.form<StyleFromProps>`
   display: flex;
   flex-direction: row;
   /* justify-content: center; */
-
+  fill-opacity: ${(props) => (props.isClick ? "80%" : "100%")};
   gap: 10px;
   &:hover {
     ${StyleHover} {
@@ -24,15 +26,20 @@ const StyleForm = styled.form<StyleFromProps>`
   }
 `;
 
-function Task({ children, focus, handler }: Props) {
+function Task({ children, isClick, focus, handler }: Props) {
   return (
-    <StyleForm focusMode={focus} onSubmit={handler}>
+    <StyleForm
+      isClick={isClick}
+      focusMode={focus}
+      onSubmit={handler}
+      data-testid="background-color"
+    >
       {children}
     </StyleForm>
   );
 }
 
 Task.Input = Input;
-Task.Submit = Submit;
+Task.Bottom = Bottom;
 
 export default Task;

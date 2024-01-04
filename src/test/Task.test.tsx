@@ -27,21 +27,11 @@ describe("Task Input을 입력하기위해 클릭", () => {
     const inputText = screen.getByPlaceholderText(
       "집중이 필요한 일 한가지를 적어주세요."
     );
-    expect(taskBackground).toHaveStyle("fill:100%");
+    expect(taskBackground).toHaveStyle("fill-opacity:100%");
     await userEvent.click(inputText);
-    expect(taskBackground).toHaveStyle("fill:80%");
-    // const submitButton = screen.getByText("입력");
-
-    // userEvent.type(inputText, "면접 공부");
-    // expect(inputText).toHaveValue("면접 공부");
-
-    // await userEvent.click(submitButton);
-
-    // //결과
-    // expect(inputText).toHaveValue("면접 공부");
-    // expect(inputText).toBeDisabled();
-    // expect(submitButton).not.toBeVisible();
+    expect(taskBackground).toHaveStyle("fill-opacity:80%");
   });
+
   test("저장 버튼 생성", async () => {
     const inputText = screen.getByPlaceholderText(
       "집중이 필요한 일 한가지를 적어주세요."
@@ -50,7 +40,21 @@ describe("Task Input을 입력하기위해 클릭", () => {
     const saveButton = screen.getByRole("button", { name: /저장/ });
     expect(saveButton).toBeDefined();
   });
-  test("글자 수 표현, 50글자까지 구현", async () => {});
+  test("글자 수 표현, 50글자까지 구현", async () => {
+    const inputText = screen.getByPlaceholderText(
+      "집중이 필요한 일 한가지를 적어주세요."
+    );
+    const textLength = screen.getByTestId("text-length");
+
+    userEvent.type(inputText, "인풋값 테스트");
+    expect(textLength).toHaveLength(7);
+    userEvent.type(inputText, "");
+    userEvent.type(
+      inputText,
+      "123456789012345678901234567890123456789012345678901"
+    ); //51
+    expect(textLength).toHaveLength(50);
+  });
 });
 
 // describe("Task Edit", () => {
