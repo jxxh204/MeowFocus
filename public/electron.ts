@@ -4,7 +4,6 @@ import {
   app,
   Tray,
   nativeImage,
-  Menu,
   ipcMain,
   globalShortcut,
 } from "electron";
@@ -102,12 +101,12 @@ const createWindow = () => {
     visualEffectState: "followWindow",
     webPreferences: {
       devTools: isDev,
-      // nodeIntegration: true,
+      nodeIntegration: true,
       preload: path.join(__dirname, "preload.js"),
       backgroundThrottling: false,
+      contextIsolation: false,
     },
   });
-  showWindow();
 
   // 앱의 index.html을 로드합니다.
   if (isDev) {
@@ -129,10 +128,8 @@ const appReady = () => {
   handleWindow();
   createTray();
   handelTrayEvent();
-
-  globalShortcut.register("CommandOrControl+W", () => {
-    // Prevent the default behavior
-    console.log("CommandOrControl+W is disabled");
+  mainWindow?.webContents.once("dom-ready", () => {
+    showWindow();
   });
 };
 app.whenReady().then(appReady);
@@ -140,6 +137,15 @@ app.on("activate", () => {
   if (BrowserWindow.getAllWindows().length === 0) {
     appReady();
   }
+});
+app.on("browser-window-focus", () => {
+  globalShortcut.register("CommandOrControl+W", () => {
+    // Prevent the default behavior
+    console.log("CommandOrControl+W is disabled");
+  });
+});
+app.on("browser-window-blur", () => {
+  globalShortcut.unregister("CommandOrControl+W");
 });
 
 // Linux와 Winodws에서는 모든 창을 종료하면 일반적으로 앱이 완전히 종료됩니다.

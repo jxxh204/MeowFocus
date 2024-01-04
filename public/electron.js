@@ -88,12 +88,12 @@ var createWindow = function () {
         visualEffectState: "followWindow",
         webPreferences: {
             devTools: isDev,
-            // nodeIntegration: true,
+            nodeIntegration: true,
             preload: path.join(__dirname, "preload.js"),
-            backgroundThrottling: false
+            backgroundThrottling: false,
+            contextIsolation: false
         }
     });
-    showWindow();
     // 앱의 index.html을 로드합니다.
     if (isDev) {
         // 개발 모드인 경우
@@ -113,17 +113,24 @@ var appReady = function () {
     handleWindow();
     createTray();
     handelTrayEvent();
-    mainWindow === null || mainWindow === void 0 ? void 0 : mainWindow.setMenu(null);
-    // globalShortcut.register("CommandOrControl+W", () => {
-    //   // Prevent the default behavior
-    //   console.log("CommandOrControl+W is disabled");
-    // });
+    mainWindow === null || mainWindow === void 0 ? void 0 : mainWindow.webContents.once("dom-ready", function () {
+        showWindow();
+    });
 };
 electron_1.app.whenReady().then(appReady);
 electron_1.app.on("activate", function () {
     if (electron_1.BrowserWindow.getAllWindows().length === 0) {
         appReady();
     }
+});
+electron_1.app.on("browser-window-focus", function () {
+    electron_1.globalShortcut.register("CommandOrControl+W", function () {
+        // Prevent the default behavior
+        console.log("CommandOrControl+W is disabled");
+    });
+});
+electron_1.app.on("browser-window-blur", function () {
+    electron_1.globalShortcut.unregister("CommandOrControl+W");
 });
 // Linux와 Winodws에서는 모든 창을 종료하면 일반적으로 앱이 완전히 종료됩니다.
 // macOS(darwin)가 아닌 경우, 'window-all-closed' 이벤트가 발생했을 때, 앱을 종료합니다.
