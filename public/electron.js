@@ -72,8 +72,8 @@ electron_1.ipcMain.on("add-done", function () {
 var createWindow = function () {
     // browser window를 생성합니다.
     mainWindow = new electron_1.BrowserWindow({
-        width: 300,
-        height: 70,
+        width: 400,
+        height: 160,
         minHeight: 50,
         maxHeight: 900,
         show: false,

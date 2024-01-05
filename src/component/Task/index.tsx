@@ -17,6 +17,12 @@ const StyleForm = styled.form<StyleFromProps>`
   display: flex;
   flex-direction: row;
   /* justify-content: center; */
+  background: ${({ theme }) => theme.color.main};
+  font-size: 15px;
+  font-weight: bold;
+  padding: 20px;
+  border-radius: 8px;
+
   fill-opacity: ${(props) => (props.isClick ? "80%" : "100%")};
   gap: 10px;
   &:hover {

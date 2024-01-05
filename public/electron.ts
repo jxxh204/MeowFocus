@@ -85,8 +85,8 @@ ipcMain.on("add-done", () => {
 const createWindow = () => {
   // browser window를 생성합니다.
   mainWindow = new BrowserWindow({
-    width: 300,
-    height: 70,
+    width: 400,
+    height: 160,
     minHeight: 50,
     maxHeight: 900,
     show: false,
