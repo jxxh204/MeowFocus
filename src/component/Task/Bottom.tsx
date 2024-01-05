@@ -12,15 +12,16 @@ const BottomStyle = styled.input`
 `;
 
 type Props = {
+  isClick: boolean;
   focus: boolean;
   text: string;
 };
-function Bottom({ focus, text }: Props) {
-  if (!focus)
+function Bottom({ isClick, focus, text }: Props) {
+  if (text || isClick)
     return (
       <>
         <div data-testid="text-length">{text.length}/50</div>
-        <BottomStyle type="submit" value="입력" />
+        <BottomStyle type="submit" value="저장" />
       </>
     );
   return null;

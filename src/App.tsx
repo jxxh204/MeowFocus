@@ -30,7 +30,7 @@ function App() {
           handleChange={textHandler}
           handleClick={isClickInput}
         />
-        <Task.Bottom focus={isFocusMode} text={text} />
+        <Task.Bottom isClick={isClick} focus={isFocusMode} text={text} />
       </Task>
       {/* <Timer /> */}
     </div>

@@ -32,28 +32,43 @@ describe("Task Input을 입력하기위해 클릭", () => {
     expect(taskBackground).toHaveStyle("fill-opacity:80%");
   });
 
-  test("저장 버튼 생성", async () => {
+  test("text 입력 or 클릭 시 저장 버튼 생성", async () => {
     const inputText = screen.getByPlaceholderText(
       "집중이 필요한 일 한가지를 적어주세요."
     );
+
     await userEvent.click(inputText);
     const saveButton = screen.getByRole("button", { name: /저장/ });
-    expect(saveButton).toBeDefined();
+
+    expect(saveButton).toBeVisible();
+    await userEvent.click(inputText); // 클릭 이벤트 제거하는 법 찾아야함
+
+    // await waitFor(() => {
+    //   expect(saveButton).not.toBeInTheDocument();
+    //   return null;
+    // }).then(() => {
+    //   userEvent.type(inputText, "인풋값 테스트");
+
+    //   expect(saveButton).toBeVisible();
+    // });
   });
   test("글자 수 표현, 50글자까지 구현", async () => {
     const inputText = screen.getByPlaceholderText(
       "집중이 필요한 일 한가지를 적어주세요."
     );
+
+    await userEvent.click(inputText);
+
     const textLength = screen.getByTestId("text-length");
 
     userEvent.type(inputText, "인풋값 테스트");
-    expect(textLength).toHaveLength(7);
+    expect(textLength).toHaveTextContent("7/50");
     userEvent.type(inputText, "");
     userEvent.type(
       inputText,
       "123456789012345678901234567890123456789012345678901"
     ); //51
-    expect(textLength).toHaveLength(50);
+    expect(textLength).toHaveTextContent("50/50");
   });
 });
 

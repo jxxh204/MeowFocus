@@ -15,6 +15,9 @@ function useTask() {
   };
 
   const textHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.currentTarget.value.length > 50) {
+      return setText(text);
+    }
     setText(event.currentTarget.value);
   };
   const handleSubmit = (event: React.SyntheticEvent) => {
