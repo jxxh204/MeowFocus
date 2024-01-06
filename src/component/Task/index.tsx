@@ -15,7 +15,7 @@ type StyleFromProps = {
 };
 const StyleForm = styled.form<StyleFromProps>`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   /* justify-content: center; */
   background: ${({ theme }) => theme.color.main};
   font-size: 15px;

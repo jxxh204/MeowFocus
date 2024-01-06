@@ -69,6 +69,7 @@ describe("Task Input을 입력하기위해 클릭", () => {
       "123456789012345678901234567890123456789012345678901"
     ); //51
     expect(textLength).toHaveTextContent("50/50");
+    expect(textLength).toHaveStyle("color:red");
   });
 });
 
