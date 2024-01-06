@@ -9,27 +9,33 @@ const InputWrapper = styled.div`
   border: 1px solid ${({ theme }) => theme.color.main};
   gap: 10px;
 `;
-const InputStyle = styled.input`
+type InputProps = { isClick: boolean };
+const InputStyle = styled.input<InputProps>`
   width: 100%;
   height: 100%;
-  background: ${({ theme }) => theme.color.main};
+  background: ${({ theme, isClick }) =>
+    isClick ? theme.color.clickColor : theme.color.main};
   border: none;
+  color: ${({ isClick }) => (isClick ? "white" : "black")};
+  filter: saturate(80%);
 `;
 
 type Props = {
   text: string;
+  isClick: boolean;
   focus: boolean;
   handleChange: React.ChangeEventHandler<HTMLInputElement>;
   handleClick: React.FocusEventHandler<HTMLInputElement>;
 };
 
-function Input({ text, focus, handleChange, handleClick }: Props) {
+function Input({ text, isClick, focus, handleChange, handleClick }: Props) {
   return (
     <InputWrapper>
       <img width={20} src={inputIcon} />
       <InputStyle
         value={text}
         disabled={focus}
+        isClick={isClick}
         onChange={handleChange}
         onFocus={handleClick}
         onBlur={handleClick}

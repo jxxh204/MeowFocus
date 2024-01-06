@@ -27,9 +27,9 @@ describe("Task Input을 입력하기위해 클릭", () => {
     const inputText = screen.getByPlaceholderText(
       "집중이 필요한 일 한가지를 적어주세요."
     );
-    expect(taskBackground).toHaveStyle("fill-opacity:100%");
+    expect(taskBackground).toHaveStyle("filter:saturate(100%)");
     await userEvent.click(inputText);
-    expect(taskBackground).toHaveStyle("fill-opacity:80%");
+    expect(taskBackground).toHaveStyle("filter:saturate(80%)");
   });
 
   test("text 입력 or 클릭 시 저장 버튼 생성", async () => {

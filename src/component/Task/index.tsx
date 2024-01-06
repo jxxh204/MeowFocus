@@ -17,13 +17,15 @@ const StyleForm = styled.form<StyleFromProps>`
   display: flex;
   flex-direction: column;
   /* justify-content: center; */
-  background: ${({ theme }) => theme.color.main};
+  background: ${({ theme, isClick }) =>
+    isClick ? theme.color.clickColor : theme.color.main};
   font-size: 15px;
   font-weight: bold;
   padding: 20px;
   border-radius: 8px;
 
-  fill-opacity: ${(props) => (props.isClick ? "80%" : "100%")};
+  filter: saturate(${(props) => (props.isClick ? "80%" : "100%")});
+
   gap: 10px;
   &:hover {
     ${StyleHover} {

@@ -1,25 +1,30 @@
 import styled from "styled-components";
 
-type LengthStyleProps = {
+type styledProps = {
   textLength: number;
 };
-
-const BottomStyle = styled.section`
+const BottomStyle = styled.section<styledProps>`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  p {
+    color: ${(props) => (props.textLength === 50 ? "red" : "#f6f6f6")};
+  }
 `;
 
-const LengthStyle = styled.div<LengthStyleProps>`
+const LengthStyle = styled.p`
   margin-left: 10px;
-  color: ${(props) => (props.textLength === 50 ? "red" : "#f6f6f6")};
 `;
 
 const ButtonStyle = styled.input`
-  background-color: none;
+  background-color: ${({ theme }) => theme.color.clickColor};
+  filter: saturate(80%);
+  font-size: 11px;
   border: 1px solid #f6f6f6;
   color: #f6f6f6;
-  border-radius: 8px;
+  border-radius: 20px;
+  padding: 5px 10px;
+  cursor: pointer;
 `;
 
 type Props = {
@@ -30,10 +35,8 @@ type Props = {
 function Bottom({ isClick, focus, text }: Props) {
   if (text || isClick)
     return (
-      <BottomStyle>
-        <LengthStyle data-testid="text-length" textLength={text.length}>
-          {text.length}/50
-        </LengthStyle>
+      <BottomStyle textLength={text.length}>
+        <LengthStyle data-testid="text-length">{text.length}/50</LengthStyle>
         <ButtonStyle type="submit" value="저장" />
       </BottomStyle>
     );

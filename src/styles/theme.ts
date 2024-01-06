@@ -3,6 +3,7 @@
 const color = {
   main: "#D9D9D9",
   backgroud: "#F6F6F6",
+  clickColor: "#000000CC",
 };
 const theme = { color };
 

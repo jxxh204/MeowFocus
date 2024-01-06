@@ -26,6 +26,7 @@ function App() {
         </Hover>
         <Task.Input
           text={text}
+          isClick={isClick}
           focus={isFocusMode}
           handleChange={textHandler}
           handleClick={isClickInput}
