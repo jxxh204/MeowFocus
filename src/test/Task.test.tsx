@@ -38,7 +38,7 @@ describe("Task Input을 입력하기위해 클릭", () => {
     );
 
     await userEvent.click(inputText);
-    const saveButton = screen.getByRole("button", { name: /저장/ });
+    const saveButton = screen.getByRole("button", { name: /포커스 모드 시작/ });
 
     expect(saveButton).toBeVisible();
     await userEvent.click(inputText); // 클릭 이벤트 제거하는 법 찾아야함

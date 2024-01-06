@@ -5,7 +5,7 @@ function useTask() {
   const [isClick, setIsClick] = useState(false);
   const [isFocusMode, setIsFocusMode] = useState(false);
 
-  const isClickInput = (e: React.FocusEvent<HTMLInputElement>) => {
+  const isClickInput = (e: React.FocusEvent<HTMLTextAreaElement>) => {
     if (e.type === "focus") {
       setIsClick(true);
     }
@@ -14,7 +14,7 @@ function useTask() {
     }
   };
 
-  const textHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const textHandler = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     if (event.currentTarget.value.length > 50) {
       return setText(text);
     }

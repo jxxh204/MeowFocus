@@ -12,6 +12,8 @@ const GlobalStyle = createGlobalStyle`
   body {
     width: 100%;
     height: 100%;
+    /* background-color: white; */
+
   }
   #root {
     position: relative;
@@ -20,7 +22,6 @@ const GlobalStyle = createGlobalStyle`
     top: 0;
     left: 0;
     /* 테마 적용할때 제거 */
-    /* background-color: white; */
     /* background: rgba(255, 255, 255, 0.9); */
     /* background-size: cover; */
     

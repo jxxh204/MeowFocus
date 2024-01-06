@@ -19,7 +19,12 @@ function App() {
     <div className="App">
       {/* 1. task => input,submit */}
       {/* 2. app => task.input, task.submit */}
-      <Task isClick={isClick} focus={isFocusMode} handler={handleSubmit}>
+      <Task
+        isClick={isClick}
+        text={text}
+        focus={isFocusMode}
+        handler={handleSubmit}
+      >
         <Hover>
           <Hover.Edit />
           <Hover.Delete handler={handleDelete} />

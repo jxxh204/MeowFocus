@@ -80,6 +80,7 @@ var createWindow = function () {
         frame: false,
         fullscreenable: false,
         resizable: false,
+        darkTheme: false,
         movable: false,
         transparent: false,
         icon: path.join(__dirname, "icon.png"),

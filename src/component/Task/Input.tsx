@@ -6,26 +6,32 @@ const InputWrapper = styled.div`
   flex-direction: row;
   width: 100%;
   height: 100%;
-  border: 1px solid ${({ theme }) => theme.color.main};
+  /* border: 1px solid ${({ theme }) => theme.color.main}; */
   gap: 10px;
 `;
 type InputProps = { isClick: boolean };
-const InputStyle = styled.input<InputProps>`
+const InputStyle = styled.textarea<InputProps>`
   width: 100%;
   height: 100%;
+  padding: 10px;
+
   background: ${({ theme, isClick }) =>
     isClick ? theme.color.clickColor : theme.color.main};
   border: none;
   color: ${({ isClick }) => (isClick ? "white" : "black")};
   filter: saturate(80%);
+  &:focus {
+    outline: none;
+  }
+  resize: none;
 `;
 
 type Props = {
   text: string;
   isClick: boolean;
   focus: boolean;
-  handleChange: React.ChangeEventHandler<HTMLInputElement>;
-  handleClick: React.FocusEventHandler<HTMLInputElement>;
+  handleChange: React.ChangeEventHandler<HTMLTextAreaElement>;
+  handleClick: React.FocusEventHandler<HTMLTextAreaElement>;
 };
 
 function Input({ text, isClick, focus, handleChange, handleClick }: Props) {
@@ -39,8 +45,8 @@ function Input({ text, isClick, focus, handleChange, handleClick }: Props) {
         onChange={handleChange}
         onFocus={handleClick}
         onBlur={handleClick}
-        type="text"
         placeholder="집중이 필요한 일 한가지를 적어주세요."
+        // maxLength={50}
       />
     </InputWrapper>
   );
