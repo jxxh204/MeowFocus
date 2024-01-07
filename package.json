@@ -85,5 +85,10 @@
       "output": "dist/",
       "app": "."
     }
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "\\.(css|less|scss|sss|styl)$": "identity-obj-proxy"
+    }
   }
 }
