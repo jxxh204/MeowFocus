@@ -53,7 +53,6 @@ function Input({
         disabled={focus}
         isClick={isClick}
         onChange={handleChange}
-        onkey
         onKeyDown={handleKeyDown}
         onFocus={handleClick}
         onBlur={handleClick}

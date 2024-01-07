@@ -9,6 +9,7 @@ var BASE_URL = "http://localhost:3000";
 // 전역이 아닌 경우 자바스크립트 가비지 컬렉팅 발생 시 의도치 않게 browser window가 닫힐 수 있습니다.
 var mainWindow = null;
 var tray = null;
+var initHeight = 100;
 var createTray = function () {
     var icon = electron_1.nativeImage.createFromPath(path.join(__dirname, "tray.png"));
     // .resize({ width: 16, height: 16 })
@@ -66,14 +67,26 @@ var toggleWindow = function () {
 electron_1.ipcMain.on("show-window", function () {
     showWindow();
 });
-electron_1.ipcMain.on("add-done", function () {
-    // showWindow();
+//크기 변경
+electron_1.ipcMain.on("textfield-available", function () {
+    var windowBounds = mainWindow === null || mainWindow === void 0 ? void 0 : mainWindow.getBounds();
+    if (windowBounds) {
+        var newHeight = initHeight + 20;
+        mainWindow === null || mainWindow === void 0 ? void 0 : mainWindow.setBounds({ height: newHeight });
+    }
+});
+electron_1.ipcMain.on("textfield-disable", function () {
+    var windowBounds = mainWindow === null || mainWindow === void 0 ? void 0 : mainWindow.getBounds();
+    if (windowBounds) {
+        var newHeight = initHeight - 20;
+        mainWindow === null || mainWindow === void 0 ? void 0 : mainWindow.setBounds({ height: newHeight });
+    }
 });
 var createWindow = function () {
     // browser window를 생성합니다.
     mainWindow = new electron_1.BrowserWindow({
         width: 400,
-        height: 160,
+        height: initHeight,
         minHeight: 50,
         maxHeight: 900,
         show: false,

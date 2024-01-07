@@ -15,6 +15,7 @@ const BASE_URL = "http://localhost:3000";
 // 전역이 아닌 경우 자바스크립트 가비지 컬렉팅 발생 시 의도치 않게 browser window가 닫힐 수 있습니다.
 let mainWindow: BrowserWindow | null = null;
 let tray: Tray | null = null;
+const initHeight = 100;
 
 const createTray = () => {
   const icon = nativeImage.createFromPath(path.join(__dirname, "tray.png"));
@@ -78,15 +79,29 @@ const toggleWindow = () => {
 ipcMain.on("show-window", () => {
   showWindow();
 });
-ipcMain.on("add-done", () => {
-  // showWindow();
+//크기 변경
+ipcMain.on("textfield-available", () => {
+  const windowBounds = mainWindow?.getBounds();
+  if (windowBounds) {
+    const newHeight = initHeight + 20;
+
+    mainWindow?.setBounds({ height: newHeight });
+  }
+});
+ipcMain.on("textfield-disable", () => {
+  const windowBounds = mainWindow?.getBounds();
+  if (windowBounds) {
+    const newHeight = initHeight - 20;
+
+    mainWindow?.setBounds({ height: newHeight });
+  }
 });
 
 const createWindow = () => {
   // browser window를 생성합니다.
   mainWindow = new BrowserWindow({
     width: 400,
-    height: 160,
+    height: initHeight,
     minHeight: 50,
     maxHeight: 900,
     show: false,

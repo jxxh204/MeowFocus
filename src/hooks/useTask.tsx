@@ -5,14 +5,18 @@ function useTask() {
   const [isClick, setIsClick] = useState(false);
   const [isFocusMode, setIsFocusMode] = useState(false);
 
+  const { ipcRenderer } = window.require("electron");
+
   let minRows = 1;
 
   const isClickInput = (e: React.FocusEvent<HTMLTextAreaElement>) => {
     if (e.type === "focus") {
       setIsClick(true);
+      ipcRenderer.send("textfield-available");
     }
     if (e.type === "blur") {
       setIsClick(false);
+      ipcRenderer.send("textfield-disable");
     }
   };
 
