@@ -9,16 +9,16 @@ const InputWrapper = styled.div`
   /* border: 1px solid ${({ theme }) => theme.color.main}; */
   gap: 10px;
 `;
-type InputProps = { isClick: boolean };
+type InputProps = { $isClick: boolean };
 const InputStyle = styled.textarea<InputProps>`
   width: 100%;
   height: auto;
   /* padding: 10px; */
 
-  background: ${({ theme, isClick }) =>
-    isClick ? theme.color.clickColor : theme.color.main};
+  background: ${({ theme, $isClick }) =>
+    $isClick ? theme.color.clickColor : theme.color.main};
   border: none;
-  color: ${({ isClick }) => (isClick ? "white" : "black")};
+  color: ${({ $isClick }) => ($isClick ? "white" : "black")};
   filter: saturate(80%);
   &:focus {
     outline: none;
@@ -51,7 +51,7 @@ function Input({
         value={text}
         rows={1}
         disabled={focus}
-        isClick={isClick}
+        $isClick={isClick}
         onChange={handleChange}
         onKeyDown={handleKeyDown}
         onFocus={handleClick}

@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { ThemeProvider } from "styled-components";
 import theme from "../styles/theme";
@@ -42,16 +42,8 @@ describe("Task Input을 입력하기위해 클릭", () => {
 
     expect(saveButton).toBeVisible();
     await userEvent.click(inputText); // 클릭 이벤트 제거하는 법 찾아야함
-
-    // await waitFor(() => {
-    //   expect(saveButton).not.toBeInTheDocument();
-    //   return null;
-    // }).then(() => {
-    //   userEvent.type(inputText, "인풋값 테스트");
-
-    //   expect(saveButton).toBeVisible();
-    // });
   });
+
   test("글자 수 표현, 50글자까지 구현", async () => {
     const inputText = screen.getByPlaceholderText(
       "집중이 필요한 일 한가지를 적어주세요."
@@ -63,7 +55,7 @@ describe("Task Input을 입력하기위해 클릭", () => {
 
     userEvent.type(inputText, "인풋값 테스트");
     expect(textLength).toHaveTextContent("7/50");
-    userEvent.type(inputText, "");
+    userEvent.clear(inputText);
     userEvent.type(
       inputText,
       "123456789012345678901234567890123456789012345678901"
@@ -71,6 +63,30 @@ describe("Task Input을 입력하기위해 클릭", () => {
     expect(textLength).toHaveTextContent("50/50");
     // expect(textLength).toHaveStyle("color:red");
   });
+});
+
+describe("포커스 모드 테스트", () => {
+  beforeEach(() => {
+    setup();
+    const inputText = screen.getByPlaceholderText(
+      "집중이 필요한 일 한가지를 적어주세요."
+    );
+    userEvent.type(inputText, "인풋 입력");
+    const saveButton = screen.getByRole("button", { name: /포커스 모드 시작/ });
+    userEvent.click(saveButton);
+  });
+  test("수정 버튼 작동", async () => {
+    const inputText = screen.getByPlaceholderText(
+      "집중이 필요한 일 한가지를 적어주세요."
+    );
+    await userEvent.hover(inputText);
+    waitFor(() => {
+      const editButton = screen.getByLabelText(/수정/);
+      expect(editButton).toBeDefined();
+    });
+  });
+  test("삭제 버튼 작동", () => {});
+  test("타이머 버튼", () => {});
 });
 
 // describe("Task Edit", () => {

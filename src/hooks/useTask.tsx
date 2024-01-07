@@ -16,7 +16,7 @@ function useTask() {
     }
     if (e.type === "blur") {
       setIsClick(false);
-      ipcRenderer.send("textfield-disable");
+      if (!text) ipcRenderer.send("textfield-disable");
     }
   };
 
