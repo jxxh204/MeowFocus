@@ -12,8 +12,8 @@ const InputWrapper = styled.div`
 type InputProps = { isClick: boolean };
 const InputStyle = styled.textarea<InputProps>`
   width: 100%;
-  height: 100%;
-  padding: 10px;
+  height: auto;
+  /* padding: 10px; */
 
   background: ${({ theme, isClick }) =>
     isClick ? theme.color.clickColor : theme.color.main};
@@ -24,6 +24,7 @@ const InputStyle = styled.textarea<InputProps>`
     outline: none;
   }
   resize: none;
+  overflow-y: none;
 `;
 
 type Props = {
@@ -32,17 +33,28 @@ type Props = {
   focus: boolean;
   handleChange: React.ChangeEventHandler<HTMLTextAreaElement>;
   handleClick: React.FocusEventHandler<HTMLTextAreaElement>;
+  handleKeyDown: React.KeyboardEventHandler<HTMLTextAreaElement>;
 };
 
-function Input({ text, isClick, focus, handleChange, handleClick }: Props) {
+function Input({
+  text,
+  isClick,
+  focus,
+  handleChange,
+  handleClick,
+  handleKeyDown,
+}: Props) {
   return (
     <InputWrapper>
       <img width={20} src={inputIcon} />
       <InputStyle
         value={text}
+        rows={1}
         disabled={focus}
         isClick={isClick}
         onChange={handleChange}
+        onkey
+        onKeyDown={handleKeyDown}
         onFocus={handleClick}
         onBlur={handleClick}
         placeholder="집중이 필요한 일 한가지를 적어주세요."

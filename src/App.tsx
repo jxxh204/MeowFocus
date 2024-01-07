@@ -12,6 +12,7 @@ function App() {
     handleSubmit,
     handleDelete,
     isClickInput,
+    handleKeyDown,
   } = useTask();
   // const { ipcRenderer } = window.require("electron");
 
@@ -35,6 +36,7 @@ function App() {
           focus={isFocusMode}
           handleChange={textHandler}
           handleClick={isClickInput}
+          handleKeyDown={handleKeyDown}
         />
         <Task.Bottom isClick={isClick} focus={isFocusMode} text={text} />
       </Task>

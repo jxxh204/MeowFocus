@@ -5,6 +5,8 @@ function useTask() {
   const [isClick, setIsClick] = useState(false);
   const [isFocusMode, setIsFocusMode] = useState(false);
 
+  let minRows = 1;
+
   const isClickInput = (e: React.FocusEvent<HTMLTextAreaElement>) => {
     if (e.type === "focus") {
       setIsClick(true);
@@ -15,14 +17,23 @@ function useTask() {
   };
 
   const textHandler = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    let scrollHeight = event.currentTarget.scrollHeight;
     if (event.currentTarget.value.length > 50) {
       return setText(text);
     }
+    event.currentTarget.rows = Math.max(minRows, Math.ceil(scrollHeight / 20));
+
     setText(event.currentTarget.value);
   };
   const handleSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();
     setIsFocusMode(true);
+  };
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault();
+      setIsFocusMode(true);
+    }
   };
   const handleDelete = () => {
     setIsFocusMode(false);
@@ -34,6 +45,7 @@ function useTask() {
     isFocusMode,
     textHandler,
     handleSubmit,
+    handleKeyDown,
     handleDelete,
     isClickInput,
   };
