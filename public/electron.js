@@ -71,15 +71,14 @@ electron_1.ipcMain.on("show-window", function () {
 electron_1.ipcMain.on("textfield-available", function () {
     var windowBounds = mainWindow === null || mainWindow === void 0 ? void 0 : mainWindow.getBounds();
     if (windowBounds) {
-        var newHeight = initHeight + 20;
+        var newHeight = initHeight + 40;
         mainWindow === null || mainWindow === void 0 ? void 0 : mainWindow.setBounds({ height: newHeight });
     }
 });
 electron_1.ipcMain.on("textfield-disable", function () {
     var windowBounds = mainWindow === null || mainWindow === void 0 ? void 0 : mainWindow.getBounds();
     if (windowBounds) {
-        var newHeight = initHeight - 20;
-        mainWindow === null || mainWindow === void 0 ? void 0 : mainWindow.setBounds({ height: newHeight });
+        mainWindow === null || mainWindow === void 0 ? void 0 : mainWindow.setBounds({ height: initHeight });
     }
 });
 var createWindow = function () {

@@ -25,8 +25,8 @@ function useTask() {
     if (event.currentTarget.value.length > 50) {
       return setText(text);
     }
-    event.currentTarget.rows = Math.max(minRows, Math.ceil(scrollHeight / 20));
-
+    // event.currentTarget.rows = Math.max(minRows, Math.ceil(scrollHeight / 20));
+    event.currentTarget.rows = 2;
     setText(event.currentTarget.value);
   };
   const handleSubmit = (event: React.SyntheticEvent) => {

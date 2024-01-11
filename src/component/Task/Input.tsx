@@ -10,9 +10,13 @@ const InputWrapper = styled.div`
   gap: 10px;
 `;
 type InputProps = { $isClick: boolean };
+
+const ImageStyle = styled.img`
+  width: 20px;
+  margin-bottom: 14px;
+`;
 const InputStyle = styled.textarea<InputProps>`
   width: 100%;
-  height: auto;
   /* padding: 10px; */
 
   background: ${({ theme, $isClick }) =>
@@ -46,10 +50,9 @@ function Input({
 }: Props) {
   return (
     <InputWrapper>
-      <img width={20} src={inputIcon} />
+      <ImageStyle src={inputIcon} />
       <InputStyle
         value={text}
-        rows={1}
         disabled={focus}
         $isClick={isClick}
         onChange={handleChange}

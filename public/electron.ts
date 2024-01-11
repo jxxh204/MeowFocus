@@ -83,7 +83,7 @@ ipcMain.on("show-window", () => {
 ipcMain.on("textfield-available", () => {
   const windowBounds = mainWindow?.getBounds();
   if (windowBounds) {
-    const newHeight = initHeight + 20;
+    const newHeight = initHeight + 40;
 
     mainWindow?.setBounds({ height: newHeight });
   }
@@ -91,9 +91,7 @@ ipcMain.on("textfield-available", () => {
 ipcMain.on("textfield-disable", () => {
   const windowBounds = mainWindow?.getBounds();
   if (windowBounds) {
-    const newHeight = initHeight - 20;
-
-    mainWindow?.setBounds({ height: newHeight });
+    mainWindow?.setBounds({ height: initHeight });
   }
 });
 
