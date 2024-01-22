@@ -63,30 +63,17 @@ describe("Task Input을 입력하기위해 클릭", () => {
     expect(textLength).toHaveTextContent("50/50");
     // expect(textLength).toHaveStyle("color:red");
   });
-});
 
-describe("포커스 모드 테스트", () => {
-  beforeEach(() => {
-    setup();
-    const inputText = screen.getByPlaceholderText(
-      "집중이 필요한 일 한가지를 적어주세요."
-    );
-    userEvent.type(inputText, "인풋 입력");
-    const saveButton = screen.getByRole("button", { name: /포커스 모드 시작/ });
-    userEvent.click(saveButton);
-  });
-  test("수정 버튼 작동", async () => {
+  test("focus가 작동하는 지 확인.", async () => {
     const inputText = screen.getByPlaceholderText(
       "집중이 필요한 일 한가지를 적어주세요."
     );
     await userEvent.hover(inputText);
-    waitFor(() => {
-      const editButton = screen.getByLabelText(/수정/);
-      expect(editButton).toBeDefined();
-    });
+    const editButton = screen.getByLabelText(/수정/);
+    expect(editButton).toBeDefined();
+    const deleteButton = screen.getByLabelText(/삭제/);
+    expect(deleteButton).toBeDefined();
   });
-  test("삭제 버튼 작동", () => {});
-  test("타이머 버튼", () => {});
 });
 
 // describe("Task Edit", () => {
