@@ -12,6 +12,7 @@ import { ThemeProvider } from "styled-components";
 // };
 
 describe("포커스 모드 테스트", () => {
+  test("수정 버튼 작동", () => {});
   test("삭제 버튼 작동", () => {});
   test("타이머 버튼", () => {});
 });

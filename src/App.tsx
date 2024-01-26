@@ -2,6 +2,7 @@ import React from "react";
 import useTask from "./hooks/useTask";
 import Task from "./component/Task";
 import Hover from "./component/Hover";
+import { FocusButton, Length } from "./component/Task/styles";
 
 function App() {
   const {
@@ -20,25 +21,33 @@ function App() {
     <div className="App">
       {/* 1. task => input,submit */}
       {/* 2. app => task.input, task.submit */}
+      <Hover>
+        <Hover.Edit />
+        <Hover.Delete handler={handleDelete} />
+      </Hover>
+
+      {/* 코드가 너무 더럽다 */}
       <Task
         isClick={isClick}
         text={text}
         focus={isFocusMode}
         handler={handleSubmit}
       >
-        <Hover>
-          <Hover.Edit />
-          <Hover.Delete handler={handleDelete} />
-        </Hover>
         <Task.Input
+          $isWhiteColor={isClick}
           text={text}
-          isClick={isClick}
-          focus={isFocusMode}
+          disabled={isFocusMode}
           handleChange={textHandler}
           handleClick={isClickInput}
           handleKeyDown={handleKeyDown}
         />
-        <Task.Bottom isClick={isClick} focus={isFocusMode} text={text} />
+
+        {text || isClick ? (
+          <Task.Bottom>
+            <Length data-testid="text-length">{text.length}/50</Length>
+            <FocusButton type="submit" value="포커스 모드 시작" />
+          </Task.Bottom>
+        ) : null}
       </Task>
       {/* <Timer /> */}
     </div>

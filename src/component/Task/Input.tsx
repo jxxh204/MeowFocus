@@ -9,20 +9,22 @@ const InputWrapper = styled.div`
   /* border: 1px solid ${({ theme }) => theme.color.main}; */
   gap: 10px;
 `;
-type InputProps = { $isClick: boolean };
 
 const ImageStyle = styled.img`
   width: 20px;
   margin-bottom: 14px;
 `;
+
+type InputProps = { $isWhiteColor: boolean };
+
 const InputStyle = styled.textarea<InputProps>`
   width: 100%;
   /* padding: 10px; */
 
-  background: ${({ theme, $isClick }) =>
-    $isClick ? theme.color.clickColor : theme.color.main};
+  background: ${({ theme, $isWhiteColor }) =>
+    $isWhiteColor ? theme.color.clickColor : theme.color.main};
   border: none;
-  color: ${({ $isClick }) => ($isClick ? "white" : "black")};
+  color: ${({ $isWhiteColor }) => ($isWhiteColor ? "white" : "black")};
   filter: saturate(80%);
   &:focus {
     outline: none;
@@ -33,8 +35,8 @@ const InputStyle = styled.textarea<InputProps>`
 
 type Props = {
   text: string;
-  isClick: boolean;
-  focus: boolean;
+  $isWhiteColor: boolean;
+  disabled: boolean;
   handleChange: React.ChangeEventHandler<HTMLTextAreaElement>;
   handleClick: React.FocusEventHandler<HTMLTextAreaElement>;
   handleKeyDown: React.KeyboardEventHandler<HTMLTextAreaElement>;
@@ -42,8 +44,8 @@ type Props = {
 
 function Input({
   text,
-  isClick,
-  focus,
+  $isWhiteColor,
+  disabled,
   handleChange,
   handleClick,
   handleKeyDown,
@@ -53,8 +55,8 @@ function Input({
       <ImageStyle src={inputIcon} />
       <InputStyle
         value={text}
-        disabled={focus}
-        $isClick={isClick}
+        disabled={disabled}
+        $isWhiteColor={$isWhiteColor}
         onChange={handleChange}
         onKeyDown={handleKeyDown}
         onFocus={handleClick}
