@@ -33,7 +33,7 @@ function App() {
         focus={isFocusMode}
         handler={handleSubmit}
       >
-        <Task.Input
+        <Task.Textarea
           $isWhiteColor={isClick}
           text={text}
           disabled={isFocusMode}

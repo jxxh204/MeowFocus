@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import inputIcon from "../../asset/inputIcon.svg";
+import textareaIcon from "../../asset/textareaIcon.svg";
 
-const InputWrapper = styled.div`
+const TextareaWrapper = styled.div`
   display: flex;
   flex-direction: row;
   width: 100%;
@@ -15,9 +15,9 @@ const ImageStyle = styled.img`
   margin-bottom: 14px;
 `;
 
-type InputProps = { $isWhiteColor: boolean };
+type TextareaProps = { $isWhiteColor: boolean };
 
-const InputStyle = styled.textarea<InputProps>`
+const TextareaStyle = styled.textarea<TextareaProps>`
   width: 100%;
   /* padding: 10px; */
 
@@ -42,7 +42,7 @@ type Props = {
   handleKeyDown: React.KeyboardEventHandler<HTMLTextAreaElement>;
 };
 
-function Input({
+function Textarea({
   text,
   $isWhiteColor,
   disabled,
@@ -51,9 +51,9 @@ function Input({
   handleKeyDown,
 }: Props) {
   return (
-    <InputWrapper>
-      <ImageStyle src={inputIcon} />
-      <InputStyle
+    <TextareaWrapper>
+      <ImageStyle src={textareaIcon} />
+      <TextareaStyle
         value={text}
         disabled={disabled}
         $isWhiteColor={$isWhiteColor}
@@ -64,8 +64,8 @@ function Input({
         placeholder="집중이 필요한 일 한가지를 적어주세요."
         // maxLength={50}
       />
-    </InputWrapper>
+    </TextareaWrapper>
   );
 }
 
-export default Input;
+export default Textarea;

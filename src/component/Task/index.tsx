@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Input from "./Input";
+import Textarea from "./Textarea";
 import Bottom from "./Bottom";
 import { StyleHover } from "../Hover";
 
@@ -53,7 +53,7 @@ function Task({ children, isClick, text, focus, handler }: Props) {
   );
 }
 
-Task.Input = Input;
+Task.Textarea = Textarea;
 Task.Bottom = Bottom;
 
 export default Task;
