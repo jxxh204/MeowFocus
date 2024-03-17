@@ -5,6 +5,9 @@ const color = {
   backgroud: "#F6F6F6",
   clickColor: "#000000CC",
 };
-const theme = { color };
+const size = {
+  gap: "5px",
+};
+const theme = { color, size };
 
 export default theme;
