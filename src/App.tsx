@@ -2,24 +2,30 @@ import React from "react";
 import useTask from "./hooks/useTask";
 import Header from "./component/Header";
 import TaskName from "./component/TaskName";
+import Main from "./component/Main";
+import Button from "./component/Button";
+import SelectTime from "./component/SelectTime";
+import CountDown from "./component/CountDown";
 
 function App() {
+  const { sampleFunc } = useTask();
   // const { ipcRenderer } = window.require("electron");
 
   return (
     <div className="App">
       <Header name="작업 이름" />
 
-      <Main onSubmit={}>
+      <Main onSubmit={sampleFunc}>
         <TaskName />
-        <Button name="작업완료" /> {/* localstorage 저장 */}
-        <ConutDown /> {/* taskDispatch => selectTime */}
+        <Button name="작업완료" onClick={sampleFunc} />{" "}
+        {/* localstorage 저장 */}
+        <CountDown /> {/* taskDispatch => selectTime */}
         <SelectTime>
-          <Button name="20분" onClick={} />
-          <Button name="40분" onClick={} />
-          <Button name="60분" onClick={} />
+          <Button name="20분" onClick={sampleFunc} />
+          <Button name="40분" onClick={sampleFunc} />
+          <Button name="60분" onClick={sampleFunc} />
         </SelectTime>
-        <Submit name="직중시작" /> {/* taskDispatch */}
+        <Button name="직중시작" type="submit" /> {/* taskDispatch */}
       </Main>
     </div>
   );

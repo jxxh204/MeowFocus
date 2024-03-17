@@ -1,7 +1,11 @@
-import { ReactNode } from "react";
+import { FormEventHandler, ReactNode } from "react";
 
-function Main({ children }: { children: ReactNode }) {
-  return { children };
+type Props = {
+  children: ReactNode;
+  onSubmit: FormEventHandler<HTMLFormElement>;
+};
+function Main({ children, onSubmit }: Props) {
+  return <form onSubmit={onSubmit}>{children}</form>;
 }
 
 export default Main;

@@ -27,8 +27,8 @@ function useTask() {
   const [countDown, setCountDown] = useState();
 
   // const { ipcRenderer } = window.require("electron");
-
-  return {};
+  const sampleFunc = () => {};
+  return { sampleFunc };
 }
 
 export default useTask;
