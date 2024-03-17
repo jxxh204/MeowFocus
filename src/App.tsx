@@ -1,55 +1,26 @@
 import React from "react";
 import useTask from "./hooks/useTask";
-import Task from "./component/Task";
-import Hover from "./component/Hover";
-import { FocusButton, Length } from "./component/Task/styles";
+import Header from "./component/Header";
+import TaskName from "./component/TaskName";
 
 function App() {
-  const {
-    text,
-    isClick,
-    isFocusMode,
-    textHandler,
-    handleSubmit,
-    handleDelete,
-    isClickInput,
-    handleKeyDown,
-  } = useTask();
   // const { ipcRenderer } = window.require("electron");
 
   return (
     <div className="App">
-      {/* 1. task => input,submit */}
-      {/* 2. app => task.input, task.submit */}
-      <Hover>
-        <Hover.Edit />
-        <Hover.Delete handler={handleDelete} />
-      </Hover>
+      <Header name="작업 이름" />
 
-      {/* 코드가 너무 더럽다 */}
-      <Task
-        isClick={isClick}
-        text={text}
-        focus={isFocusMode}
-        handler={handleSubmit}
-      >
-        <Task.Textarea
-          $isWhiteColor={isClick}
-          text={text}
-          disabled={isFocusMode}
-          handleChange={textHandler}
-          handleClick={isClickInput}
-          handleKeyDown={handleKeyDown}
-        />
-
-        {text || isClick ? (
-          <Task.Bottom>
-            <Length data-testid="text-length">{text.length}/50</Length>
-            <FocusButton type="submit" value="포커스 모드 시작" />
-          </Task.Bottom>
-        ) : null}
-      </Task>
-      {/* <Timer /> */}
+      <Main onSubmit={}>
+        <TaskName />
+        <Button name="작업완료" /> {/* localstorage 저장 */}
+        <ConutDown /> {/* taskDispatch => selectTime */}
+        <SelectTime>
+          <Button name="20분" onClick={} />
+          <Button name="40분" onClick={} />
+          <Button name="60분" onClick={} />
+        </SelectTime>
+        <Submit name="직중시작" /> {/* taskDispatch */}
+      </Main>
     </div>
   );
 }

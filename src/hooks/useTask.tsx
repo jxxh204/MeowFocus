@@ -1,58 +1,34 @@
-import { useState } from "react";
+import { useReducer, useState } from "react";
+
+const initialState = {
+  taskName: "",
+  timer: null,
+  date: 0,
+  // endTime,
+  //  saveTime
+};
+type InitialState = typeof initialState;
+type TaskAction = {
+  type: "Task" | "Timer" | "Date";
+  value: string | number;
+};
+
+const reducer = (state: InitialState, action: TaskAction) => {
+  switch (action.type) {
+    case "Task":
+      return state;
+    default:
+      return state;
+  }
+};
 
 function useTask() {
-  const [text, setText] = useState("");
-  const [isClick, setIsClick] = useState(false);
-  const [isFocusMode, setIsFocusMode] = useState(false);
+  const [task, taskDispatch] = useReducer(reducer, initialState);
+  const [countDown, setCountDown] = useState();
 
-  const { ipcRenderer } = window.require("electron");
+  // const { ipcRenderer } = window.require("electron");
 
-  let minRows = 1;
-
-  const isClickInput = (e: React.FocusEvent<HTMLTextAreaElement>) => {
-    if (e.type === "focus") {
-      setIsClick(true);
-      ipcRenderer.send("textfield-available");
-    }
-    if (e.type === "blur") {
-      setIsClick(false);
-      if (!text) ipcRenderer.send("textfield-disable");
-    }
-  };
-
-  const textHandler = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    let scrollHeight = event.currentTarget.scrollHeight;
-    if (event.currentTarget.value.length > 50) {
-      return setText(text);
-    }
-    // event.currentTarget.rows = Math.max(minRows, Math.ceil(scrollHeight / 20));
-    event.currentTarget.rows = 2;
-    setText(event.currentTarget.value);
-  };
-  const handleSubmit = (event: React.SyntheticEvent) => {
-    event.preventDefault();
-    setIsFocusMode(true);
-  };
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (event.key === "Enter" && !event.shiftKey) {
-      event.preventDefault();
-      setIsFocusMode(true);
-    }
-  };
-  const handleDelete = () => {
-    setIsFocusMode(false);
-    setText("");
-  };
-  return {
-    text,
-    isClick,
-    isFocusMode,
-    textHandler,
-    handleSubmit,
-    handleKeyDown,
-    handleDelete,
-    isClickInput,
-  };
+  return {};
 }
 
 export default useTask;
