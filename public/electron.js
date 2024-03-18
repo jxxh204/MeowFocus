@@ -9,7 +9,7 @@ var BASE_URL = "http://localhost:3000";
 // 전역이 아닌 경우 자바스크립트 가비지 컬렉팅 발생 시 의도치 않게 browser window가 닫힐 수 있습니다.
 var mainWindow = null;
 var tray = null;
-var initHeight = 100;
+var initHeight = 300;
 var createTray = function () {
     var icon = electron_1.nativeImage.createFromPath(path.join(__dirname, "tray.png"));
     // .resize({ width: 16, height: 16 })

@@ -15,7 +15,7 @@ const BASE_URL = "http://localhost:3000";
 // 전역이 아닌 경우 자바스크립트 가비지 컬렉팅 발생 시 의도치 않게 browser window가 닫힐 수 있습니다.
 let mainWindow: BrowserWindow | null = null;
 let tray: Tray | null = null;
-const initHeight = 100;
+const initHeight = 300;
 
 const createTray = () => {
   const icon = nativeImage.createFromPath(path.join(__dirname, "tray.png"));

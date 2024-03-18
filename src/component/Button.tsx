@@ -2,10 +2,10 @@ import styled from "styled-components";
 
 const ButtonStyle = styled.input`
   border-radius: ${({ theme }) => theme.border.radius};
-  padding: 10px 40px;
+  padding: 10px 42px;
   background-color: white;
   border: 1px solid;
-  font-size: 14px;
+  font-size: 16px;
 `;
 
 type Props = {

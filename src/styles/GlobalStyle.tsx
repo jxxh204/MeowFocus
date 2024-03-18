@@ -29,7 +29,7 @@ const GlobalStyle = createGlobalStyle`
     /* width: 100%; */
     display: flex;
     flex-direction: column;
-    padding:14px;
+    padding:16px;
     gap: ${({ theme }) => theme.size.gap};
   }
   html, body, div, span, applet, object, iframe,
