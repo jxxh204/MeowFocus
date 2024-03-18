@@ -5,9 +5,12 @@ const color = {
   backgroud: "#F6F6F6",
   clickColor: "#000000CC",
 };
+const border = {
+  radius: "6px",
+};
 const size = {
   gap: "5px",
 };
-const theme = { color, size };
+const theme = { color, size, border };
 
 export default theme;

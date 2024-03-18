@@ -1,7 +1,7 @@
 import React from "react";
 import useTask from "./hooks/useTask";
 import Header from "./component/Header";
-import TaskName from "./component/TaskName";
+import InputTask from "./component/InputTask";
 import Main from "./component/Main";
 import Button from "./component/Button";
 import SelectTime from "./component/SelectTime";
@@ -16,7 +16,7 @@ function App() {
       <Header name="작업 이름" />
 
       <Main onSubmit={sampleFunc}>
-        <TaskName />
+        <InputTask />
         <Button name="작업완료" onClick={sampleFunc} />{" "}
         {/* localstorage 저장 */}
         <CountDown /> {/* taskDispatch => selectTime */}
