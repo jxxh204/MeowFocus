@@ -1,22 +1,31 @@
 import styled from "styled-components";
 
-const ButtonStyle = styled.input`
+const ButtonStyle = styled.button`
   border-radius: ${({ theme }) => theme.border.radius};
   padding: 10px 42px;
   background-color: white;
   border: 1px solid;
   font-size: 16px;
+  cursor: pointer;
+
+  transition: background-color 0.2s;
+
+  &:hover {
+    background: ${({ theme }) => theme.color.green[300]};
+  }
 `;
 
 type Props = {
-  name: string;
-  type?: "submit";
-  onClick?: () => void;
+  value: number;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  children: React.ReactNode;
 };
 
-function Button({ name, type, onClick }: Props) {
+function Button({ value, onClick, children }: Props) {
   return (
-    <ButtonStyle type={type ? type : "button"} value={name} onClick={onClick} />
+    <ButtonStyle onClick={onClick} value={value}>
+      {children}
+    </ButtonStyle>
   );
 }
 

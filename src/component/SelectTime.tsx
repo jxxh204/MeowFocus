@@ -6,6 +6,7 @@ const SelectTimeStyle = styled.section`
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
+  margin-top: ${({ theme }) => theme.size.gap};
 `;
 
 function SelectTime({ children }: { children: ReactNode }) {

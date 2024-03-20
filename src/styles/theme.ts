@@ -4,12 +4,16 @@ const color = {
   main: "#D9D9D9",
   backgroud: "#F6F6F6",
   clickColor: "#000000CC",
+  green: {
+    300: "#4DFFB4",
+  },
 };
 const border = {
-  radius: "6px",
+  radius: "8px",
+  color: "rgba(0, 0, 0, 0.10)",
 };
 const size = {
-  gap: "5px",
+  gap: "8px",
 };
 const theme = { color, size, border };
 

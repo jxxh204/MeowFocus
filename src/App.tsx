@@ -6,26 +6,37 @@ import Main from "./component/Main";
 import Button from "./component/Button";
 import SelectTime from "./component/SelectTime";
 import CountDown from "./component/CountDown";
+import Radio from "./component/Radio";
 
 function App() {
-  const { sampleFunc } = useTask();
+  const { task, sampleFunc, onSubmit } = useTask();
   // const { ipcRenderer } = window.require("electron");
 
   return (
     <div className="App">
       <Header name="작업 이름" />
 
-      <Main onSubmit={sampleFunc}>
+      <Main onSubmit={onSubmit}>
         <InputTask />
-        <Button name="작업완료" onClick={sampleFunc} />{" "}
+        {/* <Button name="작업완료" onClick={sampleFunc} />{" "} */}
         {/* localstorage 저장 */}
-        <CountDown /> {/* taskDispatch => selectTime */}
+
+        {/* <CountDown /> */}
+        {/* taskDispatch => selectTime */}
         <SelectTime>
-          <Button name="20분" onClick={sampleFunc} />
-          <Button name="40분" onClick={sampleFunc} />
-          <Button name="60분" onClick={sampleFunc} />
+          <Radio name="time" id="20">
+            20분
+          </Radio>
+          <Radio name="time" id="40">
+            40분
+          </Radio>
+          <Radio name="time" id="60">
+            60분
+          </Radio>
         </SelectTime>
-        <Button name="직중시작" type="submit" /> {/* taskDispatch */}
+
+        <input type="submit" value="집중시작" />
+        {/* taskDispatch */}
       </Main>
     </div>
   );
