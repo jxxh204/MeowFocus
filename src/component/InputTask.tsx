@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { TaskName } from "type/task";
 
 const InputTaskStyle = styled.input`
   color: gray;
