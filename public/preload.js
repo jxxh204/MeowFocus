@@ -6,3 +6,6 @@ electron_1.contextBridge.exposeInMainWorld("versions", {
     chrome: function () { return process.versions.chrome; },
     electron: function () { return process.versions.electron; }
 });
+// contextBridge.exposeInMainWorld('page', {
+//   setTitle: (title) => ipcRenderer.send('set-title', title)
+// })

@@ -7,10 +7,12 @@ import Time from "component/SelectTime/Time";
 import Header from "component/Header";
 
 import { useTaskChangeContext, useTaskContext } from "context/Task";
+import { useNavigate } from "react-router-dom";
 
 function Input() {
   const task = useTaskContext();
   const changeContext = useTaskChangeContext();
+  const navigate = useNavigate();
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -19,6 +21,8 @@ function Input() {
 
     if (!task?.timer) return alert("time을 선택해주세요.");
     // 유효성 검사.
+
+    navigate("/focus");
   };
   return (
     <>

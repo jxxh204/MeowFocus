@@ -1,7 +1,8 @@
 import React from "react";
 import useTask from "./hooks/useTask";
-import Input from "./page/Input";
 import { TaskProvider } from "context/Task";
+import { HashRouter } from "react-router-dom";
+import Router from "router/router";
 
 function App() {
   const { task, onChange } = useTask();
@@ -10,7 +11,9 @@ function App() {
   return (
     <div className="App">
       <TaskProvider value={task} onChangeHandler={onChange}>
-        <Input />
+        <HashRouter>
+          <Router />
+        </HashRouter>
       </TaskProvider>
     </div>
   );

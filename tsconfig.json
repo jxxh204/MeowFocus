@@ -18,8 +18,8 @@
     "baseUrl": "src",
     "paths": {
       "@/*": ["src/*"],
-      "@/component/*": ["component/*"],
-      "@/page/*": ["page/*"]
+      "component/*": ["component/*"],
+      "page/*": ["page/*"]
     }
   },
   "include": ["src", "electron.ts", "preload.ts"]

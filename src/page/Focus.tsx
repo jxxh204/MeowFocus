@@ -1,6 +1,6 @@
 export function FocusDefault() {
-  return;
+  return <>focus</>;
 }
 export function FocusControl() {
-  return;
+  return <></>;
 }
