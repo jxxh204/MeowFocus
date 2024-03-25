@@ -1,10 +1,11 @@
 import { ReactNode, createContext, useContext } from "react";
+import { T_ChangeHandler } from "type/task";
 
 type Props = {
   disabled?: boolean;
-  value: null | number;
+  value: number | undefined;
   name: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: T_ChangeHandler | null;
 };
 
 const SelectTimerContext = createContext<null | Props>(null);
@@ -25,7 +26,7 @@ const SelectTimerProvider = ({
 
 const useSelectTimerContext = () => {
   const context = useContext(SelectTimerContext);
-  if (!context) console.error("selectTimer context 없음");
+  if (!context) throw new Error("SelectTimer 컨텍스트 없음.");
   return context;
 };
 

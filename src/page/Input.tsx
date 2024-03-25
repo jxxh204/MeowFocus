@@ -5,17 +5,32 @@ import Main from "component/Main";
 import SelectTimer from "component/SelectTime/SelectTimer";
 import Time from "component/SelectTime/Time";
 import Header from "component/Header";
-import useTask from "hooks/useTask";
+
+import { useTaskChangeContext, useTaskContext } from "context/Task";
 
 function Input() {
-  const { task, onSubmit, onChange } = useTask();
+  const task = useTaskContext();
+  const changeContext = useTaskChangeContext();
+
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log(task?.timer);
+    if (!task?.taskName) return alert("태스크를 입력해주세요.");
+
+    if (!task?.timer) return alert("time을 선택해주세요.");
+    // 유효성 검사.
+  };
   return (
     <>
       <Header name="작업 이름" />
       <Main onSubmit={onSubmit}>
-        <InputTask name="taskName" onChange={onChange} />
+        <InputTask name="taskName" onChange={changeContext?.onChange} />
 
-        <SelectTimer value={task.timer} name="timer" onChange={onChange}>
+        <SelectTimer
+          value={task?.timer}
+          name="timer"
+          onChange={changeContext?.onChange}
+        >
           <Time value="20">20분</Time>
           <Time value="40">40분</Time>
           <Time value="60">60분</Time>

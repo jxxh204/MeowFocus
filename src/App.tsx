@@ -1,14 +1,17 @@
 import React from "react";
 import useTask from "./hooks/useTask";
 import Input from "./page/Input";
+import { TaskProvider } from "context/Task";
 
 function App() {
-  const { task, onSubmit, onChange } = useTask();
+  const { task, onChange } = useTask();
   // const { ipcRenderer } = window.require("electron");
 
   return (
     <div className="App">
-      <Input />
+      <TaskProvider value={task} onChangeHandler={onChange}>
+        <Input />
+      </TaskProvider>
     </div>
   );
 }

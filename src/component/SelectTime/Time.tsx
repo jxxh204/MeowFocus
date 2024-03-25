@@ -33,15 +33,14 @@ type Props = {
 };
 
 function Time({ children, value }: Props) {
-  const context = useSelectTimerContext();
-
+  const { onChange, name } = useSelectTimerContext();
   return (
     <TimeLabel>
       <TimeInput
         type="radio"
-        name={context?.name}
+        name={name}
         value={value}
-        onChange={context?.onChange}
+        onChange={onChange ? onChange : undefined}
       />
       <span>{children}</span>
     </TimeLabel>

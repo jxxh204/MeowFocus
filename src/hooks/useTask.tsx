@@ -4,12 +4,12 @@ import { TaskAction, TaskName } from "../type/task";
 const initialState = {
   // 전역으로 돌려야할듯.
   taskName: "",
-  timer: null,
+  timer: 0,
   date: 0,
   // endTime,
   //  saveTime
 };
-type InitialState = typeof initialState;
+export type InitialState = typeof initialState;
 
 const reducer = (state: InitialState, action: TaskAction) => {
   switch (action.type) {
@@ -31,14 +31,6 @@ function useTask() {
   const [countDown, setCountDown] = useState();
   // const { ipcRenderer } = window.require("electron");
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log(task);
-    if (!task.taskName) return alert("태스크를 입력해주세요.");
-
-    if (!task.timer) return alert("time을 선택해주세요.");
-    // 유효성 검사.
-  };
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const name = e.target.name as TaskName;
     taskDispatch({
@@ -47,7 +39,7 @@ function useTask() {
       value: e.target.value,
     });
   };
-  return { task, onSubmit, onChange };
+  return { task, onChange };
 }
 
 export default useTask;

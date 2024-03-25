@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import styled from "styled-components";
 import { SelectTimerProvider } from "./context";
-import { TaskName } from "type/task";
+import { T_ChangeHandler, TaskName } from "type/task";
 
 const SelectTimeStyle = styled.section`
   display: flex;
@@ -12,9 +12,9 @@ const SelectTimeStyle = styled.section`
 
 type Props = {
   children: ReactNode;
-  value: null | number;
+  value: number;
   name: TaskName;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: T_ChangeHandler;
 };
 
 function SelectTimer({ children, ...reset }: Props) {

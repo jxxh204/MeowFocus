@@ -1,5 +1,6 @@
+import { ChangeEventHandler } from "react";
 import styled from "styled-components";
-import { TaskName } from "type/task";
+import { T_ChangeHandler, TaskName } from "type/task";
 
 const InputTaskStyle = styled.input`
   color: gray;
@@ -11,7 +12,7 @@ const InputTaskStyle = styled.input`
 
 type Props = {
   name: TaskName;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: T_ChangeHandler;
 };
 
 function InputTask({ name, onChange }: Props) {
