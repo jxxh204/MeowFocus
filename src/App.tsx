@@ -5,11 +5,10 @@ import InputTask from "./component/InputTask";
 import Main from "./component/Main";
 import Button from "./component/Button";
 import SelectTimer from "./component/SelectTime/SelectTimer";
-import CountDown from "./component/CountDown";
 import Time from "./component/SelectTime/Time";
 
 function App() {
-  const { task, sampleFunc, onSubmit, onChangeTimer } = useTask();
+  const { task, onSubmit, onChange } = useTask();
   // const { ipcRenderer } = window.require("electron");
 
   return (
@@ -17,13 +16,9 @@ function App() {
       <Header name="작업 이름" />
 
       <Main onSubmit={onSubmit}>
-        <InputTask />
-        {/* <Button name="작업완료" onClick={sampleFunc} />{" "} */}
-        {/* localstorage 저장 */}
+        <InputTask name="TASK" onChange={onChange} />
 
-        {/* <CountDown /> */}
-        {/* taskDispatch => selectTime */}
-        <SelectTimer value={task.timer} name="timer" onChange={onChangeTimer}>
+        <SelectTimer value={task.timer} name="TIMER" onChange={onChange}>
           <Time value="20">20분</Time>
           <Time value="40">40분</Time>
           <Time value="60">60분</Time>

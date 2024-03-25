@@ -1,5 +1,5 @@
 function Complete() {
-    return (  );
+  return;
 }
 
 export default Complete;

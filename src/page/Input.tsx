@@ -1,5 +1,5 @@
 function Input() {
-    return (  );
+  return;
 }
 
 export default Input;

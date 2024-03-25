@@ -1,6 +1,7 @@
 import { useReducer, useRef, useState } from "react";
 
 const initialState = {
+  // 전역으로 돌려야할듯.
   taskName: "",
   timer: null,
   date: 0,
@@ -8,11 +9,6 @@ const initialState = {
   //  saveTime
 };
 type InitialState = typeof initialState;
-type TaskAction = {
-  type: "SET_TASK" | "SET_NAME" | "SET_TIMER" | "SET_DATE";
-  name: "taskName" | "timer" | "date";
-  value: string | number;
-};
 
 const reducer = (state: InitialState, action: TaskAction) => {
   switch (action.type) {
@@ -33,17 +29,23 @@ function useTask() {
   const [task, taskDispatch] = useReducer(reducer, initialState);
   const [countDown, setCountDown] = useState();
   // const { ipcRenderer } = window.require("electron");
-  const sampleFunc = () => {};
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(task);
+    if (!task.taskName) return alert("태스크를 입력해주세요.");
+
+    if (!task.timer) return alert("time을 선택해주세요.");
+    // 유효성 검사.
   };
-  const onChangeTimer = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value);
-    taskDispatch({ type: "SET_TIMER", name: "timer", value: e.target.value });
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const name = e.target.name as TaskName;
+    taskDispatch({
+      type: `SET_${name}`,
+      name: name,
+      value: e.target.value,
+    });
   };
-  return { task, sampleFunc, onSubmit, onChangeTimer };
+  return { task, onSubmit, onChange };
 }
 
 export default useTask;

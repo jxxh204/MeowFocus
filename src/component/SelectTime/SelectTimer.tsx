@@ -12,7 +12,7 @@ const SelectTimeStyle = styled.section`
 type Props = {
   children: ReactNode;
   value: null | number;
-  name: string;
+  name: TaskName;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 

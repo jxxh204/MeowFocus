@@ -8,8 +8,13 @@ const InputTaskStyle = styled.input`
   padding: 10px 3%;
 `;
 
-function InputTask() {
-  return <InputTaskStyle type="text" name="task_name" />;
+type Props = {
+  name: TaskName;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+};
+
+function InputTask({ name, onChange }: Props) {
+  return <InputTaskStyle type="text" name={name} onChange={onChange} />;
 }
 
 export default InputTask;
