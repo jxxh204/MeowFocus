@@ -1,4 +1,4 @@
-import { useTaskContext } from "context/TaskContext";
+import { useStorage } from "context/TaskContext";
 import styled from "styled-components";
 
 const DefaultTaskWrap = styled.section`
@@ -14,10 +14,10 @@ const DefaultTaskStyle = styled.div`
 `;
 
 export function FocusDefault() {
-  const task = useTaskContext();
+  const { storage } = useStorage();
   return (
     <DefaultTaskWrap>
-      <DefaultTaskStyle>{task.taskName}</DefaultTaskStyle>
+      <DefaultTaskStyle>{storage.taskName}</DefaultTaskStyle>
     </DefaultTaskWrap>
   );
 }

@@ -5,13 +5,14 @@ import { HashRouter } from "react-router-dom";
 import Router from "router/router";
 
 function App() {
-  const { task, taskDispatch, onChange } = useTask();
+  const { task, storage, taskDispatch, onChange } = useTask();
   // const { ipcRenderer } = window.require("electron");
 
   return (
     <div className="App">
       <TaskProvider
         value={task}
+        storage={storage}
         dispatch={taskDispatch}
         onChangeHandler={onChange}
       >

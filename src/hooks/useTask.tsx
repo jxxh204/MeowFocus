@@ -34,8 +34,8 @@ function useTask() {
 
   // const { ipcRenderer } = window.require("electron");
   useEffect(() => {
-    setStorage(task);
-    console.log(storage);
+    if (!storage?.taskName) setStorage(task);
+    console.log(task);
   }, [task]);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -46,7 +46,7 @@ function useTask() {
       value: e.target.value,
     });
   };
-  return { task: storage, taskDispatch, onChange };
+  return { storage, task, taskDispatch, onChange };
 }
 
 export default useTask;
