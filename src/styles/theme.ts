@@ -9,8 +9,8 @@ const color = {
   },
 };
 const border = {
-  radius: "8px",
-  color: "rgba(0, 0, 0, 0.10)",
+  radius: "6px",
+  color: "rgba(0, 0, 0, 0.1)",
 };
 const size = {
   gap: "8px",

@@ -8,3 +8,5 @@ export type TaskAction = {
   value: string | number;
 };
 export type T_ChangeHandler = ChangeEventHandler<HTMLInputElement>;
+
+export type LocalStorageValue<T> = T | null;

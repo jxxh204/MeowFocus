@@ -6,12 +6,17 @@ import SelectTimer from "component/SelectTime/SelectTimer";
 import Time from "component/SelectTime/Time";
 import Header from "component/Header";
 
-import { useTaskChangeContext, useTaskContext } from "context/Task";
+import {
+  useTaskChangeContext,
+  useTaskContext,
+  useTaskDispatchContext,
+} from "context/TaskContext";
 import { useNavigate } from "react-router-dom";
 
 function Input() {
   const task = useTaskContext();
   const changeContext = useTaskChangeContext();
+  const { dispatch } = useTaskDispatchContext();
   const navigate = useNavigate();
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -21,7 +26,7 @@ function Input() {
 
     if (!task?.timer) return alert("time을 선택해주세요.");
     // 유효성 검사.
-
+    dispatch({ name: "date", type: "SET_TASK", value: Date.now() });
     navigate("/focus");
   };
   return (
@@ -41,8 +46,6 @@ function Input() {
         </SelectTimer>
 
         <Button type="submit" name="집중 시작!" />
-
-        {/* taskDispatch */}
       </Main>
     </>
   );

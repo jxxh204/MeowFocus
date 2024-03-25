@@ -1,5 +1,6 @@
-import { useReducer, useRef, useState } from "react";
+import { useEffect, useReducer, useRef, useState } from "react";
 import { TaskAction, TaskName } from "../type/task";
+import { useLocalStorage } from "./useLocalStorage";
 
 const initialState = {
   // 전역으로 돌려야할듯.
@@ -29,7 +30,13 @@ const reducer = (state: InitialState, action: TaskAction) => {
 function useTask() {
   const [task, taskDispatch] = useReducer(reducer, initialState);
   const [countDown, setCountDown] = useState();
+  const [storage, setStorage] = useLocalStorage("task", task);
+
   // const { ipcRenderer } = window.require("electron");
+  useEffect(() => {
+    setStorage(task);
+    console.log(storage);
+  }, [task]);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const name = e.target.name as TaskName;
@@ -39,7 +46,7 @@ function useTask() {
       value: e.target.value,
     });
   };
-  return { task, onChange };
+  return { task: storage, taskDispatch, onChange };
 }
 
 export default useTask;

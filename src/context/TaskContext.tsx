@@ -1,21 +1,32 @@
 import { InitialState } from "hooks/useTask";
 import React, { createContext, useContext } from "react";
-import { T_ChangeHandler } from "type/task";
+import { LocalStorageValue, T_ChangeHandler, TaskAction } from "type/task";
 
 type ProviderProps = {
   children: React.ReactNode;
-  value: InitialState;
+  value: LocalStorageValue<InitialState>;
+  dispatch: React.Dispatch<TaskAction>;
   onChangeHandler: T_ChangeHandler;
 };
 
 const TaskContext = createContext<InitialState | null>(null);
+const TaskDispatchContext = createContext<React.Dispatch<TaskAction> | null>(
+  null
+);
 const TaskChangeContext = createContext<null | T_ChangeHandler>(null);
 
-function TaskProvider({ children, value, onChangeHandler }: ProviderProps) {
+function TaskProvider({
+  children,
+  value,
+  dispatch,
+  onChangeHandler,
+}: ProviderProps) {
   return (
     <TaskContext.Provider value={value}>
       <TaskChangeContext.Provider value={onChangeHandler}>
-        {children}
+        <TaskDispatchContext.Provider value={dispatch}>
+          {children}
+        </TaskDispatchContext.Provider>
       </TaskChangeContext.Provider>
     </TaskContext.Provider>
   );
@@ -37,5 +48,17 @@ function useTaskChangeContext() {
   }
   return { onChange };
 }
+function useTaskDispatchContext() {
+  const dispatch = useContext(TaskDispatchContext);
+  if (!dispatch) {
+    throw new Error("Task dispatch 컨텍스트 없음.");
+  }
+  return { dispatch };
+}
 
-export { TaskProvider, useTaskContext, useTaskChangeContext };
+export {
+  TaskProvider,
+  useTaskContext,
+  useTaskChangeContext,
+  useTaskDispatchContext,
+};
