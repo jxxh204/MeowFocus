@@ -16,9 +16,9 @@ function App() {
       <Header name="작업 이름" />
 
       <Main onSubmit={onSubmit}>
-        <InputTask name="TASK" onChange={onChange} />
+        <InputTask name="taskName" onChange={onChange} />
 
-        <SelectTimer value={task.timer} name="TIMER" onChange={onChange}>
+        <SelectTimer value={task.timer} name="timer" onChange={onChange}>
           <Time value="20">20분</Time>
           <Time value="40">40분</Time>
           <Time value="60">60분</Time>

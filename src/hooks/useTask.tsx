@@ -1,4 +1,5 @@
 import { useReducer, useRef, useState } from "react";
+import { TaskAction, TaskName } from "../type/task";
 
 const initialState = {
   // 전역으로 돌려야할듯.
@@ -32,6 +33,7 @@ function useTask() {
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    console.log(task);
     if (!task.taskName) return alert("태스크를 입력해주세요.");
 
     if (!task.timer) return alert("time을 선택해주세요.");
@@ -40,7 +42,7 @@ function useTask() {
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const name = e.target.name as TaskName;
     taskDispatch({
-      type: `SET_${name}`,
+      type: `SET_TASK`,
       name: name,
       value: e.target.value,
     });
