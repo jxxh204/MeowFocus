@@ -1,16 +1,16 @@
 import styled from "styled-components";
 
-const RadioWrapper = styled.div`
+const TimeWrapper = styled.div`
   display: flex;
 `;
-const RadioInput = styled.input`
+const TimeInput = styled.input`
   display: none;
 
   &:checked + label {
     background-color: gray;
   }
 `;
-const RadioLabel = styled.label`
+const TimeLabel = styled.label`
   border-radius: ${({ theme }) => theme.border.radius};
   padding: 10px 42px;
   background-color: white;
@@ -32,13 +32,13 @@ type Props = {
   onChange?: () => void;
 };
 
-function Radio({ children, name, id, onChange }: Props) {
+function Time({ children, name, id, onChange }: Props) {
   return (
-    <RadioWrapper>
-      <RadioInput type="radio" name={name} id={id} onChange={onChange} />
-      <RadioLabel htmlFor={id}>{children}</RadioLabel>
-    </RadioWrapper>
+    <TimeWrapper>
+      <TimeInput type="time" name={name} id={id} onChange={onChange} />
+      <TimeLabel htmlFor={id}>{children}</TimeLabel>
+    </TimeWrapper>
   );
 }
 
-export default Radio;
+export default Time;

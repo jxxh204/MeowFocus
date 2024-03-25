@@ -4,12 +4,12 @@ import Header from "./component/Header";
 import InputTask from "./component/InputTask";
 import Main from "./component/Main";
 import Button from "./component/Button";
-import SelectTime from "./component/SelectTime";
+import SelectTimer from "./component/SelectTime/SelectTimer";
 import CountDown from "./component/CountDown";
-import Radio from "./component/Radio";
+import Time from "./component/SelectTime/Time";
 
 function App() {
-  const { task, sampleFunc, onSubmit } = useTask();
+  const { task, sampleFunc, onSubmit, onChangeTimer } = useTask();
   // const { ipcRenderer } = window.require("electron");
 
   return (
@@ -23,17 +23,17 @@ function App() {
 
         {/* <CountDown /> */}
         {/* taskDispatch => selectTime */}
-        <SelectTime>
-          <Radio name="time" id="20">
+        <SelectTimer value={task.timer} onChange={onChangeTimer}>
+          <Time name="time" id="20">
             20분
-          </Radio>
-          <Radio name="time" id="40">
+          </Time>
+          <Time name="time" id="40">
             40분
-          </Radio>
-          <Radio name="time" id="60">
+          </Time>
+          <Time name="time" id="60">
             60분
-          </Radio>
-        </SelectTime>
+          </Time>
+        </SelectTimer>
 
         <input type="submit" value="집중시작" />
         {/* taskDispatch */}

@@ -37,36 +37,10 @@ function useTask() {
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const getRadio = (element: Element) => {
-      if (element instanceof HTMLInputElement) {
-        if (element.type === "radio") {
-          if (element.checked)
-            taskDispatch({
-              type: "SET_TASK",
-              name: "timer",
-              value: element.id,
-            });
-        }
-      }
-    };
-    const getText = (element: Element) => {
-      if (element instanceof HTMLInputElement) {
-        if (element.type === "text") {
-          taskDispatch({
-            type: "SET_TASK",
-            name: "taskName",
-            value: element.value,
-          });
-        }
-      }
-    };
-    for (let element of e.currentTarget.elements) {
-      getRadio(element);
-      getText(element);
-    }
     console.log(task);
   };
-  return { task, sampleFunc, onSubmit };
+  const onChangeTimer = () => {};
+  return { task, sampleFunc, onSubmit, onChangeTimer };
 }
 
 export default useTask;
