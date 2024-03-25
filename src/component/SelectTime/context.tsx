@@ -1,15 +1,10 @@
-import {
-  Dispatch,
-  ReactNode,
-  SetStateAction,
-  createContext,
-  useContext,
-} from "react";
+import { ReactNode, createContext, useContext } from "react";
 
 type Props = {
   disabled?: boolean;
   value: null | number;
-  onChange: Dispatch<SetStateAction<string>>;
+  name: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 const SelectTimerContext = createContext<null | Props>(null);

@@ -7,13 +7,13 @@ const SelectTimeStyle = styled.section`
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
-  margin-top: ${({ theme }) => theme.size.gap};
 `;
 
 type Props = {
   children: ReactNode;
   value: null | number;
-  onChange: React.Dispatch<React.SetStateAction<string>>;
+  name: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 function SelectTimer({ children, ...reset }: Props) {

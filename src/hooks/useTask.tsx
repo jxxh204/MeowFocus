@@ -39,7 +39,10 @@ function useTask() {
     e.preventDefault();
     console.log(task);
   };
-  const onChangeTimer = () => {};
+  const onChangeTimer = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target.value);
+    taskDispatch({ type: "SET_TIMER", name: "timer", value: e.target.value });
+  };
   return { task, sampleFunc, onSubmit, onChangeTimer };
 }
 

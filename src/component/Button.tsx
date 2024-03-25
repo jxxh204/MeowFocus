@@ -1,14 +1,17 @@
 import styled from "styled-components";
 
-const ButtonStyle = styled.button`
+const ButtonStyle = styled.input`
   border-radius: ${({ theme }) => theme.border.radius};
-  padding: 10px 42px;
+  width: 100%;
+  padding: 16px 12px;
   background-color: white;
   border: 1px solid;
   font-size: 16px;
   cursor: pointer;
 
   transition: background-color 0.2s;
+  background: #000;
+  color: #fff;
 
   &:hover {
     background: ${({ theme }) => theme.color.green[300]};
@@ -16,16 +19,14 @@ const ButtonStyle = styled.button`
 `;
 
 type Props = {
-  value: number;
-  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  children: React.ReactNode;
+  type?: "submit";
+  onClick?: (e: React.MouseEvent<HTMLInputElement>) => void;
+  name: string;
 };
 
-function Button({ value, onClick, children }: Props) {
+function Button({ onClick, type, name }: Props) {
   return (
-    <ButtonStyle onClick={onClick} value={value}>
-      {children}
-    </ButtonStyle>
+    <ButtonStyle type={type ? type : "button"} onClick={onClick} value={name} />
   );
 }
 

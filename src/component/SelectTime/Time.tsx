@@ -1,43 +1,50 @@
 import styled from "styled-components";
+import { useSelectTimerContext } from "./context";
 
-const TimeWrapper = styled.div`
-  display: flex;
-`;
 const TimeInput = styled.input`
   display: none;
 
-  &:checked + label {
-    background-color: gray;
+  &:checked + span {
+    background-color: ${({ theme }) => theme.color.green[300]};
   }
 `;
 const TimeLabel = styled.label`
+  display: flex;
   border-radius: ${({ theme }) => theme.border.radius};
-  padding: 10px 42px;
-  background-color: white;
-  border: 1px solid;
-  font-size: 16px;
-  cursor: pointer;
-
-  transition: background-color 0.2s;
 
   &:hover {
     background: ${({ theme }) => theme.color.green[300]};
+  }
+  span {
+    border-radius: ${({ theme }) => theme.border.radius};
+    padding: 10px 42px;
+    background-color: white;
+    border: 1px solid;
+    font-size: 16px;
+
+    transition: background-color 0.2s;
+    cursor: pointer;
   }
 `;
 
 type Props = {
   children: string;
-  name: string;
-  id: string;
-  onChange?: () => void;
+  value: string;
 };
 
-function Time({ children, name, id, onChange }: Props) {
+function Time({ children, value }: Props) {
+  const context = useSelectTimerContext();
+
   return (
-    <TimeWrapper>
-      <TimeInput type="time" name={name} id={id} onChange={onChange} />
-      <TimeLabel htmlFor={id}>{children}</TimeLabel>
-    </TimeWrapper>
+    <TimeLabel>
+      <TimeInput
+        type="radio"
+        name={context?.name}
+        value={value}
+        onChange={context?.onChange}
+      />
+      <span>{children}</span>
+    </TimeLabel>
   );
 }
 

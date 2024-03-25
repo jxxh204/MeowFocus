@@ -6,7 +6,6 @@ const InputTaskStyle = styled.input`
   border-radius: ${({ theme }) => theme.border.radius};
   width: 94%;
   padding: 10px 3%;
-  margin-top: ${({ theme }) => theme.size.gap};
 `;
 
 function InputTask() {

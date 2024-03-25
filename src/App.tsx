@@ -23,19 +23,14 @@ function App() {
 
         {/* <CountDown /> */}
         {/* taskDispatch => selectTime */}
-        <SelectTimer value={task.timer} onChange={onChangeTimer}>
-          <Time name="time" id="20">
-            20분
-          </Time>
-          <Time name="time" id="40">
-            40분
-          </Time>
-          <Time name="time" id="60">
-            60분
-          </Time>
+        <SelectTimer value={task.timer} name="timer" onChange={onChangeTimer}>
+          <Time value="20">20분</Time>
+          <Time value="40">40분</Time>
+          <Time value="60">60분</Time>
         </SelectTimer>
 
-        <input type="submit" value="집중시작" />
+        <Button type="submit" name="집중 시작!" />
+
         {/* taskDispatch */}
       </Main>
     </div>
