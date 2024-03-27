@@ -5,6 +5,7 @@ interface CircularProgressProps {
   size: number;
   strokeWidth: number;
   percentage: number;
+  color?: string;
 }
 
 const CircleWrapper = styled.div<{ size: number }>`
@@ -41,6 +42,7 @@ const CircularProgress: React.FC<CircularProgressProps> = ({
   size,
   strokeWidth,
   percentage,
+  color,
 }) => {
   const radius = (size - strokeWidth) / 2;
   const circumference = 2 * Math.PI * radius;
@@ -70,9 +72,9 @@ const CircularProgress: React.FC<CircularProgressProps> = ({
         dominantBaseline="middle"
         textAnchor="middle"
         fontSize="30px"
-        fill="#3498db"
+        fill={color ? color : "#3498db"}
       >
-        {percentage}%
+        {/* {percentage}% */}
       </text>
     </CircleWrapper>
   );

@@ -31,16 +31,20 @@ function useCountDown(durationInMinutes: number) {
     const formattedSeconds = seconds < 10 ? `0${seconds}` : `${seconds}`;
 
     // Calculate the percentage of time passed
-    const totalTimeInSeconds = durationInMinutes * 60;
-    const timePassedInSeconds = totalTimeInSeconds - time;
-    const progress = (timePassedInSeconds / totalTimeInSeconds) * 100;
 
     setRemainingTime({
       time: time,
       minute: formattedMinutes,
       second: formattedSeconds,
-      progress: progress,
+      progress: setPercent(time),
     });
+  };
+
+  const setPercent = (time: number) => {
+    const totalTimeInSeconds = durationInMinutes * 60;
+    const timePassedInSeconds = totalTimeInSeconds - time;
+    const progress = (timePassedInSeconds / totalTimeInSeconds) * 100;
+    return progress;
   };
 
   const startCount = () => {

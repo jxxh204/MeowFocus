@@ -30,14 +30,13 @@ function CountDown({ count }: Props) {
     <>
       {/* <CounterUI progress={remainingTime.progress}></CounterUI> */}
       <CircularProgress
-        size={200}
-        strokeWidth={10}
+        size={50}
+        strokeWidth={25}
         percentage={remainingTime.progress}
       />
-      {/* <p>
-        {remainingTime.minute} : {remainingTime.second} :{" "}
-        {remainingTime.progress}
-      </p> */}
+      <p>
+        {remainingTime.minute} : {remainingTime.second}
+      </p>
     </>
   );
 }
