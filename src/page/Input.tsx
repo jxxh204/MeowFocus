@@ -26,7 +26,7 @@ function Input() {
 
     if (!task?.timer) return alert("time을 선택해주세요.");
     // 유효성 검사.
-    dispatch({ name: "date", type: "SET_TASK", value: Date.now() });
+    dispatch({ name: "date", type: "SET_TASK", value: new Date().getTime() });
     navigate("/focus");
   };
   return (

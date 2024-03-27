@@ -34,7 +34,8 @@ function useTask() {
 
   // const { ipcRenderer } = window.require("electron");
   useEffect(() => {
-    if (!storage?.taskName) setStorage(task);
+    // if (!storage?.taskName)
+    setStorage(task);
     console.log(task);
   }, [task]);
 
