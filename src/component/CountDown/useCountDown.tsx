@@ -27,9 +27,13 @@ function useCountDown(durationInMinutes: number) {
     const time = remainingTime.time - 1;
     const minutes = Math.floor(remainingTime.time / 60);
     const seconds = remainingTime.time % 60;
-    const progress = 1 - remainingTime.time / (60 * 1000 * durationInMinutes);
     const formattedMinutes = minutes < 10 ? `0${minutes}` : `${minutes}`;
     const formattedSeconds = seconds < 10 ? `0${seconds}` : `${seconds}`;
+
+    // Calculate the percentage of time passed
+    const totalTimeInSeconds = durationInMinutes * 60;
+    const timePassedInSeconds = totalTimeInSeconds - time;
+    const progress = (timePassedInSeconds / totalTimeInSeconds) * 100;
 
     setRemainingTime({
       time: time,

@@ -1,13 +1,13 @@
 import { useEffect } from "react";
 import styled from "styled-components";
 import useCountDown from "./useCountDown";
+import CircularProgress from "./CircularProgress";
 
 type Props = {
-  date: number;
   count: number;
 };
 type CounterUIProps = {
-  progress: number;
+  progress: string;
 };
 
 const CounterUI = styled.div<CounterUIProps>`
@@ -19,7 +19,7 @@ const CounterUI = styled.div<CounterUIProps>`
   background: conic-gradient(red, ${({ progress }) => progress}, gray);
 `;
 
-function CountDown({ date, count }: Props) {
+function CountDown({ count }: Props) {
   const { remainingTime, startCount, setTime } = useCountDown(count);
   useEffect(() => {
     setTime();
@@ -28,8 +28,16 @@ function CountDown({ date, count }: Props) {
 
   return (
     <>
-      <CounterUI progress={remainingTime.progress}></CounterUI>
-      {remainingTime.minute} : {remainingTime.second}
+      {/* <CounterUI progress={remainingTime.progress}></CounterUI> */}
+      <CircularProgress
+        size={200}
+        strokeWidth={10}
+        percentage={remainingTime.progress}
+      />
+      {/* <p>
+        {remainingTime.minute} : {remainingTime.second} :{" "}
+        {remainingTime.progress}
+      </p> */}
     </>
   );
 }

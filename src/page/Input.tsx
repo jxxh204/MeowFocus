@@ -40,7 +40,7 @@ function Input() {
           name="timer"
           onChange={changeContext?.onChange}
         >
-          <Time value="20">20분</Time>
+          <Time value="1">20분</Time>
           <Time value="40">40분</Time>
           <Time value="60">60분</Time>
         </SelectTimer>

@@ -18,7 +18,7 @@ export function FocusDefault() {
   return (
     <DefaultTaskWrap>
       <DefaultTaskStyle>{storage.taskName}</DefaultTaskStyle>
-      <CountDown date={storage.date} count={storage.timer} />
+      <CountDown count={storage.timer} />
     </DefaultTaskWrap>
   );
 }
