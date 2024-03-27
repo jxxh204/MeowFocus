@@ -21,7 +21,7 @@ const CircleSVG = styled.svg`
 
 const CircleBackground = styled.circle<{ strokeWidth: number }>`
   fill: none;
-  stroke: #f0f0f0;
+  stroke: ${(props) => props.color};
   stroke-width: ${(props) => props.strokeWidth}px;
 `;
 
@@ -31,7 +31,7 @@ const CircleProgress = styled.circle<{
   offset: number;
 }>`
   fill: none;
-  stroke: #3498db;
+  stroke: #f0f0f0;
   stroke-width: ${(props) => props.strokeWidth}px;
   stroke-dasharray: ${(props) => props.circumference};
   stroke-dashoffset: ${(props) => props.offset};
@@ -46,7 +46,7 @@ const CircularProgress: React.FC<CircularProgressProps> = ({
 }) => {
   const radius = (size - strokeWidth) / 2;
   const circumference = 2 * Math.PI * radius;
-  const offset = circumference - (percentage / 100) * circumference;
+  const offset = (1 - percentage / 100) * circumference; // 퍼센트
 
   return (
     <CircleWrapper size={size}>
@@ -56,6 +56,7 @@ const CircularProgress: React.FC<CircularProgressProps> = ({
           cy={size / 2}
           r={radius}
           strokeWidth={strokeWidth}
+          color={color ? color : "#3498db"}
         />
         <CircleProgress
           cx={size / 2}
@@ -66,16 +67,6 @@ const CircularProgress: React.FC<CircularProgressProps> = ({
           offset={offset}
         />
       </CircleSVG>
-      <text
-        x="50%"
-        y="50%"
-        dominantBaseline="middle"
-        textAnchor="middle"
-        fontSize="30px"
-        fill={color ? color : "#3498db"}
-      >
-        {/* {percentage}% */}
-      </text>
     </CircleWrapper>
   );
 };
