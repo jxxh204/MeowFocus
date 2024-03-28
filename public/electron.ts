@@ -10,6 +10,7 @@ import {
 } from "electron";
 import * as path from "path";
 import * as isDev from "electron-is-dev";
+import { MouseMove } from "../src/type/interface";
 
 const BASE_URL = "http://localhost:3000";
 // BrowserWindow 객체는 전역으로 관리합니다.
@@ -139,6 +140,7 @@ const appReady = () => {
     showWindow();
   });
   mainWindow?.isDestroyed();
+  mouseIpcProtocol();
 };
 app.whenReady().then(appReady).then(screenHandler);
 app.on("activate", () => {
@@ -186,7 +188,38 @@ ipcMain.on("textfield-disable", () => {
     mainWindow?.setBounds({ height: initHeight });
   }
 });
-ipcMain.on("MOUSE_MOVE", (move) => {
-  // mainWindow?.setBounds({ height: move.moveY });
-  console.log("2차", move);
-});
+
+const mouseIpcProtocol = () => {
+  let _mouseDiffX;
+  let _mouseDiffY;
+  ipcMain.on("MOUSE_MOVE", (e, { mouseX, mouseY }: MouseMove) => {
+    // if (isDown) {
+    //   const position = getWindowPosition();
+    //   if (position) {
+    //     console.log(mouseX, position.x);
+    //     const distanceX = mouseX - position.x;
+    //     const x = mouseX - distanceX;
+
+    //     const distanceY = mouseY - position.y;
+    //     const y = mouseY - distanceY;
+    //     // mainWindow?.setPosition(x, y, false);
+    //     mainWindow?.setBounds({ x, y });
+    //   }
+    // }
+
+    const newX = mouseX - _mouseDiffX;
+    const newY = mouseY - _mouseDiffY;
+    // mainWindow?.setBounds({ x: newX, y: newY });
+    mainWindow?.setPosition(newX, newY, false);
+  });
+  ipcMain.on("MOUSE_DOWN", (e, { mouseX, mouseY }: MouseMove) => {
+    const bounds = mainWindow?.getBounds();
+    if (bounds) {
+      _mouseDiffX = mouseX - bounds.x; // 처음 마우스가 클릭된 위치
+      _mouseDiffY = mouseY - bounds.y;
+    }
+  });
+  ipcMain.on("MOUSE_UN", (e, { mouseX, mouseY }: MouseMove) => {
+    // isDown = false;
+  });
+};

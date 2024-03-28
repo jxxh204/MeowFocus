@@ -8,7 +8,6 @@ electron_1.contextBridge.exposeInMainWorld("versions", {
 });
 electron_1.contextBridge.exposeInMainWorld("electron", {
     sendMessage: function (action, args) {
-        console.log("1차", args);
         electron_1.ipcRenderer.send(action, args);
     }
 });

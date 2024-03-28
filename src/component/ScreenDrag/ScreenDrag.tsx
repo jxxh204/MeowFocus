@@ -7,7 +7,7 @@ const ScreenDragStyle = styled.svg`
 type Props = {
   width: number;
   height: number;
-  mouseMoveHandelr: (e: React.MouseEvent<SVGSVGElement>) => void;
+  mouseMoveHandler: (e: React.MouseEvent<SVGSVGElement>) => void;
   mouseUpHandler: () => void;
   mouseDownHandler: (e: React.MouseEvent<SVGSVGElement>) => void;
 };
@@ -15,7 +15,7 @@ type Props = {
 function ScreenDrag({
   width,
   height,
-  mouseMoveHandelr,
+  mouseMoveHandler,
   mouseUpHandler,
   mouseDownHandler,
 }: Props) {
@@ -28,7 +28,7 @@ function ScreenDrag({
       fill="none"
       onMouseDown={mouseDownHandler}
       onMouseUp={mouseUpHandler}
-      onMouseMove={mouseMoveHandelr}
+      onMouseMove={mouseMoveHandler}
     >
       <g clipPath="url(#clip0_786_2245)">
         <path

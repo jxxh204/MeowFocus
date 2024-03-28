@@ -21,7 +21,7 @@ const DefaultTaskStyle = styled.div`
 
 export function FocusDefault() {
   const { storage } = useStorage();
-  const { mouseMoveHandelr, mouseUpHandler, mouseDownHandler } =
+  const { mouseMoveHandler, mouseUpHandler, mouseDownHandler } =
     useScreenDrag();
   return (
     <DefaultTaskWrap>
@@ -34,7 +34,7 @@ export function FocusDefault() {
       <ScreenDrag
         width={24}
         height={20}
-        mouseMoveHandelr={mouseMoveHandelr}
+        mouseMoveHandler={mouseMoveHandler}
         mouseUpHandler={mouseUpHandler}
         mouseDownHandler={mouseDownHandler}
       />
