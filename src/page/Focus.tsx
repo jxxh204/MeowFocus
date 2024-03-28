@@ -32,8 +32,8 @@ export function FocusDefault() {
         isMinutesTimer={false}
       />
       <ScreenDrag
-        width={24}
-        height={20}
+        width={34}
+        height={30}
         mouseMoveHandler={mouseMoveHandler}
         mouseUpHandler={mouseUpHandler}
         mouseDownHandler={mouseDownHandler}

@@ -193,23 +193,8 @@ const mouseIpcProtocol = () => {
   let _mouseDiffX;
   let _mouseDiffY;
   ipcMain.on("MOUSE_MOVE", (e, { mouseX, mouseY }: MouseMove) => {
-    // if (isDown) {
-    //   const position = getWindowPosition();
-    //   if (position) {
-    //     console.log(mouseX, position.x);
-    //     const distanceX = mouseX - position.x;
-    //     const x = mouseX - distanceX;
-
-    //     const distanceY = mouseY - position.y;
-    //     const y = mouseY - distanceY;
-    //     // mainWindow?.setPosition(x, y, false);
-    //     mainWindow?.setBounds({ x, y });
-    //   }
-    // }
-
     const newX = mouseX - _mouseDiffX;
     const newY = mouseY - _mouseDiffY;
-    // mainWindow?.setBounds({ x: newX, y: newY });
     mainWindow?.setPosition(newX, newY, false);
   });
   ipcMain.on("MOUSE_DOWN", (e, { mouseX, mouseY }: MouseMove) => {
@@ -218,8 +203,5 @@ const mouseIpcProtocol = () => {
       _mouseDiffX = mouseX - bounds.x; // 처음 마우스가 클릭된 위치
       _mouseDiffY = mouseY - bounds.y;
     }
-  });
-  ipcMain.on("MOUSE_UN", (e, { mouseX, mouseY }: MouseMove) => {
-    // isDown = false;
   });
 };

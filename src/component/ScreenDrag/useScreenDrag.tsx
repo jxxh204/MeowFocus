@@ -1,19 +1,24 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 function useScreenDrag() {
+  const on = useRef(false);
   // renderer Process
-  useEffect(() => {}, []);
 
   const mouseMoveHandler = (e: React.MouseEvent<SVGSVGElement>) => {
     const move = {
       mouseX: e.screenX,
       mouseY: e.screenY,
     };
-    window.electron.sendMessage("MOUSE_MOVE", move);
+    if (on.current) {
+      window.electron.sendMessage("MOUSE_MOVE", move);
+      console.log("move");
+    }
   };
 
   const mouseUpHandler = () => {
-    window.electron.sendMessage("MOUSE_UP", null);
+    // window.electron.sendMessage("MOUSE_UP", null);
+    on.current = false;
+    console.log("up");
   };
 
   const mouseDownHandler = (e: React.MouseEvent<SVGSVGElement>) => {
@@ -22,6 +27,8 @@ function useScreenDrag() {
       mouseY: e.screenY,
     };
     window.electron.sendMessage("MOUSE_DOWN", move);
+    on.current = true;
+    console.log("down");
   };
   return {
     mouseMoveHandler,

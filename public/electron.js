@@ -172,22 +172,9 @@ var mouseIpcProtocol = function () {
     var _mouseDiffX;
     var _mouseDiffY;
     electron_1.ipcMain.on("MOUSE_MOVE", function (e, _a) {
-        // if (isDown) {
-        //   const position = getWindowPosition();
-        //   if (position) {
-        //     console.log(mouseX, position.x);
-        //     const distanceX = mouseX - position.x;
-        //     const x = mouseX - distanceX;
         var mouseX = _a.mouseX, mouseY = _a.mouseY;
-        //     const distanceY = mouseY - position.y;
-        //     const y = mouseY - distanceY;
-        //     // mainWindow?.setPosition(x, y, false);
-        //     mainWindow?.setBounds({ x, y });
-        //   }
-        // }
         var newX = mouseX - _mouseDiffX;
         var newY = mouseY - _mouseDiffY;
-        // mainWindow?.setBounds({ x: newX, y: newY });
         mainWindow === null || mainWindow === void 0 ? void 0 : mainWindow.setPosition(newX, newY, false);
     });
     electron_1.ipcMain.on("MOUSE_DOWN", function (e, _a) {
@@ -197,9 +184,5 @@ var mouseIpcProtocol = function () {
             _mouseDiffX = mouseX - bounds.x; // 처음 마우스가 클릭된 위치
             _mouseDiffY = mouseY - bounds.y;
         }
-    });
-    electron_1.ipcMain.on("MOUSE_UN", function (e, _a) {
-        var mouseX = _a.mouseX, mouseY = _a.mouseY;
-        // isDown = false;
     });
 };
