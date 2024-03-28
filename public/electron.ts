@@ -63,9 +63,9 @@ const handleWindow = () => {
     // 화면 변경하더라도 항상 위
     mainWindow.setVisibleOnAllWorkspaces(true);
     // 포커스를 잃었을 경우
-    mainWindow.on("blur", () => {
-      mainWindow?.hide();
-    });
+    // mainWindow.on("blur", () => {
+    //   mainWindow?.hide();
+    // });
   }
 };
 
@@ -76,25 +76,6 @@ const toggleWindow = () => {
     showWindow();
   }
 };
-
-ipcMain.on("show-window", () => {
-  showWindow();
-});
-//크기 변경
-ipcMain.on("textfield-available", () => {
-  const windowBounds = mainWindow?.getBounds();
-  if (windowBounds) {
-    const newHeight = initHeight + 40;
-
-    mainWindow?.setBounds({ height: newHeight });
-  }
-});
-ipcMain.on("textfield-disable", () => {
-  const windowBounds = mainWindow?.getBounds();
-  if (windowBounds) {
-    mainWindow?.setBounds({ height: initHeight });
-  }
-});
 
 const createWindow = () => {
   // browser window를 생성합니다.
@@ -119,7 +100,7 @@ const createWindow = () => {
       nodeIntegration: true,
       preload: path.join(__dirname, "preload.js"),
       backgroundThrottling: false,
-      contextIsolation: false,
+      contextIsolation: true,
     },
   });
 
@@ -184,4 +165,28 @@ app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
     app.quit();
   }
+});
+// ipcMain
+
+ipcMain.on("show-window", () => {
+  showWindow();
+});
+//크기 변경
+ipcMain.on("textfield-available", () => {
+  const windowBounds = mainWindow?.getBounds();
+  if (windowBounds) {
+    const newHeight = initHeight + 40;
+
+    mainWindow?.setBounds({ height: newHeight });
+  }
+});
+ipcMain.on("textfield-disable", () => {
+  const windowBounds = mainWindow?.getBounds();
+  if (windowBounds) {
+    mainWindow?.setBounds({ height: initHeight });
+  }
+});
+ipcMain.on("MOUSE_MOVE", (move) => {
+  // mainWindow?.setBounds({ height: move.moveY });
+  console.log("2차", move);
 });

@@ -6,11 +6,9 @@ contextBridge.exposeInMainWorld("versions", {
   electron: () => process.versions.electron,
 });
 
-// contextBridge.exposeInMainWorld('page', {
-//   setTitle: (title) => ipcRenderer.send('set-title', title)
-// })
-
-contextBridge.exposeInMainWorld("ElectronMouse", {
-  getData: (params) => console.log(params),
-  // ipcRenderer.send(params)
+contextBridge.exposeInMainWorld("electron", {
+  sendMessage: function (action, args) {
+    console.log("1차", args);
+    ipcRenderer.send(action, args);
+  },
 });

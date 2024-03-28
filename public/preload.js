@@ -6,9 +6,9 @@ electron_1.contextBridge.exposeInMainWorld("versions", {
     chrome: function () { return process.versions.chrome; },
     electron: function () { return process.versions.electron; }
 });
-// contextBridge.exposeInMainWorld('page', {
-//   setTitle: (title) => ipcRenderer.send('set-title', title)
-// })
-electron_1.contextBridge.exposeInMainWorld("ElectronMouse", {
-    getData: function (params) { return console.log(params); }
+electron_1.contextBridge.exposeInMainWorld("electron", {
+    sendMessage: function (action, args) {
+        console.log("1차", args);
+        electron_1.ipcRenderer.send(action, args);
+    }
 });

@@ -51,9 +51,9 @@ var handleWindow = function () {
         // 화면 변경하더라도 항상 위
         mainWindow.setVisibleOnAllWorkspaces(true);
         // 포커스를 잃었을 경우
-        mainWindow.on("blur", function () {
-            mainWindow === null || mainWindow === void 0 ? void 0 : mainWindow.hide();
-        });
+        // mainWindow.on("blur", () => {
+        //   mainWindow?.hide();
+        // });
     }
 };
 var toggleWindow = function () {
@@ -64,23 +64,6 @@ var toggleWindow = function () {
         showWindow();
     }
 };
-electron_1.ipcMain.on("show-window", function () {
-    showWindow();
-});
-//크기 변경
-electron_1.ipcMain.on("textfield-available", function () {
-    var windowBounds = mainWindow === null || mainWindow === void 0 ? void 0 : mainWindow.getBounds();
-    if (windowBounds) {
-        var newHeight = initHeight + 40;
-        mainWindow === null || mainWindow === void 0 ? void 0 : mainWindow.setBounds({ height: newHeight });
-    }
-});
-electron_1.ipcMain.on("textfield-disable", function () {
-    var windowBounds = mainWindow === null || mainWindow === void 0 ? void 0 : mainWindow.getBounds();
-    if (windowBounds) {
-        mainWindow === null || mainWindow === void 0 ? void 0 : mainWindow.setBounds({ height: initHeight });
-    }
-});
 var createWindow = function () {
     // browser window를 생성합니다.
     mainWindow = new electron_1.BrowserWindow({
@@ -104,7 +87,7 @@ var createWindow = function () {
             nodeIntegration: true,
             preload: path.join(__dirname, "preload.js"),
             backgroundThrottling: false,
-            contextIsolation: false
+            contextIsolation: true
         }
     });
     // 앱의 index.html을 로드합니다.
@@ -165,4 +148,26 @@ electron_1.app.on("window-all-closed", function () {
     if (process.platform !== "darwin") {
         electron_1.app.quit();
     }
+});
+// ipcMain
+electron_1.ipcMain.on("show-window", function () {
+    showWindow();
+});
+//크기 변경
+electron_1.ipcMain.on("textfield-available", function () {
+    var windowBounds = mainWindow === null || mainWindow === void 0 ? void 0 : mainWindow.getBounds();
+    if (windowBounds) {
+        var newHeight = initHeight + 40;
+        mainWindow === null || mainWindow === void 0 ? void 0 : mainWindow.setBounds({ height: newHeight });
+    }
+});
+electron_1.ipcMain.on("textfield-disable", function () {
+    var windowBounds = mainWindow === null || mainWindow === void 0 ? void 0 : mainWindow.getBounds();
+    if (windowBounds) {
+        mainWindow === null || mainWindow === void 0 ? void 0 : mainWindow.setBounds({ height: initHeight });
+    }
+});
+electron_1.ipcMain.on("MOUSE_MOVE", function (move) {
+    // mainWindow?.setBounds({ height: move.moveY });
+    console.log("2차", move);
 });

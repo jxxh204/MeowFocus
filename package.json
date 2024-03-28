@@ -28,7 +28,7 @@
     "react-eject": "react-scripts eject",
     "electron": "wait-on http://localhost:3000 && electron .",
     "compile-main": "tsc ./public/electron.ts && tsc ./public/preload.ts",
-    "dev": "concurrently \"yarn react-start\" \"yarn compile-main\" \"yarn electron\"",
+    "dev": "concurrently  \"yarn compile-main\" \"yarn react-start\" \"yarn electron\"",
     "prod": "electron . --production",
     "pack": "npm run compile-main && npm run react-build && electron-builder --dir",
     "build": "npm run compile-main && npm run react-build && electron-builder build",

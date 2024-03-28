@@ -1,9 +1,14 @@
-export interface ElectronMouseAPI {
-  getData: () => Promise<void>;
+export interface Electron {
+  sendMessage: (action, args) => void;
+}
+
+export interface Versions {
+  ping: () => void;
 }
 
 declare global {
   interface Window {
-    ElectronMouse: ElectronMouseAPI;
+    electron: Electron;
+    versions: Versions;
   }
 }

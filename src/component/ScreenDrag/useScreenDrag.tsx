@@ -1,14 +1,30 @@
+import { useEffect, useRef } from "react";
+import { Electron } from "type/interface";
+
 function useScreenDrag() {
   // renderer Process
-  const { ElectronMouse } = window;
+  const El = useRef<Electron>();
+  useEffect(() => {
+    El.current = window.electron;
+  }, []);
 
-  const mouseMoveHandelr = (e: React.MouseEvent<SVGSVGElement>) => {
+  const mouseMoveHandler = (e: React.MouseEvent<SVGSVGElement>) => {
     console.log("🚀 ~ mouseMoveHandelr ~ mouseMoveHandelr: 움직임");
     // ipcRenderer.send("SCREEN_DRAG_MOVE", {
     //   mouseX: e.screenX,
     //   mouseY: e.screenY,
     // });
-    ElectronMouse.getData("움직여");
+    try {
+      //   ElectronMouse.getData("움직여");
+      //   const res = El.current?.sendMessage("move",0)
+      const move = {
+        mouseX: e.screenX,
+        mouseY: e.screenY,
+      };
+      window.electron.sendMessage("MOUSE_MOVE", "전달");
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const mouseUpHandler = () => {
@@ -26,7 +42,11 @@ function useScreenDrag() {
     //   document.addEventListener('mousemove', onMouseMove);
     //   document.addEventListener('mouseup', onMouseUp);
   };
-  return { mouseMoveHandelr, mouseUpHandler, mouseDownHandler };
+  return {
+    mouseMoveHandelr: mouseMoveHandler,
+    mouseUpHandler,
+    mouseDownHandler,
+  };
 }
 
 export default useScreenDrag;
