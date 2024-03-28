@@ -121,6 +121,16 @@ var createWindow = function () {
 };
 // Electron이 준비되면 whenReady 메서드가 호출되어,
 // 초기화 및 browser window를 생성합니다.
+var screenHandler = function () {
+    electron_1.screen.on("display-added", function () {
+        // 화면 추가시 처리
+        console.log("화면추가");
+    });
+    electron_1.screen.on("display-removed", function () {
+        // 화면 제거시 처리
+        console.log("화면제거");
+    });
+};
 var appReady = function () {
     createWindow();
     handleWindow();
@@ -130,7 +140,7 @@ var appReady = function () {
         showWindow();
     });
 };
-electron_1.app.whenReady().then(appReady);
+electron_1.app.whenReady().then(appReady).then(screenHandler);
 electron_1.app.on("activate", function () {
     if (electron_1.BrowserWindow.getAllWindows().length === 0) {
         appReady();

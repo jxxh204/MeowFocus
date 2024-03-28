@@ -6,6 +6,7 @@ import {
   nativeImage,
   ipcMain,
   globalShortcut,
+  screen,
 } from "electron";
 import * as path from "path";
 import * as isDev from "electron-is-dev";
@@ -136,6 +137,17 @@ const createWindow = () => {
 
 // Electron이 준비되면 whenReady 메서드가 호출되어,
 // 초기화 및 browser window를 생성합니다.
+const screenHandler = () => {
+  screen.on("display-added", () => {
+    // 화면 추가시 처리
+    console.log("화면추가");
+  });
+
+  screen.on("display-removed", () => {
+    // 화면 제거시 처리
+    console.log("화면제거");
+  });
+};
 
 const appReady = () => {
   createWindow();
@@ -145,8 +157,9 @@ const appReady = () => {
   mainWindow?.webContents.once("dom-ready", () => {
     showWindow();
   });
+  mainWindow?.isDestroyed();
 };
-app.whenReady().then(appReady);
+app.whenReady().then(appReady).then(screenHandler);
 app.on("activate", () => {
   if (BrowserWindow.getAllWindows().length === 0) {
     appReady();

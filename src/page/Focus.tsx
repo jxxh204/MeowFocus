@@ -1,4 +1,5 @@
 import CountDown from "component/CountDown/CountDown";
+import ScreenDrag from "component/ScreenDrag";
 import { useStorage } from "context/TaskContext";
 import styled from "styled-components";
 const DefaultTaskWrap = styled.section`
@@ -27,6 +28,7 @@ export function FocusDefault() {
         color={"black"}
         isMinutesTimer={false}
       />
+      <ScreenDrag width={24} height={20} />
     </DefaultTaskWrap>
   );
 }
