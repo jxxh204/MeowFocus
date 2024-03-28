@@ -1,4 +1,4 @@
-import { contextBridge } from "electron";
+import { contextBridge, ipcRenderer } from "electron";
 
 contextBridge.exposeInMainWorld("versions", {
   node: () => process.versions.node,
@@ -9,3 +9,8 @@ contextBridge.exposeInMainWorld("versions", {
 // contextBridge.exposeInMainWorld('page', {
 //   setTitle: (title) => ipcRenderer.send('set-title', title)
 // })
+
+contextBridge.exposeInMainWorld("ElectronMouse", {
+  getData: (params) => console.log(params),
+  // ipcRenderer.send(params)
+});

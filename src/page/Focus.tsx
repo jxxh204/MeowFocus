@@ -1,5 +1,6 @@
 import CountDown from "component/CountDown/CountDown";
-import ScreenDrag from "component/ScreenDrag";
+import ScreenDrag from "component/ScreenDrag/ScreenDrag";
+import useScreenDrag from "component/ScreenDrag/useScreenDrag";
 import { useStorage } from "context/TaskContext";
 import styled from "styled-components";
 const DefaultTaskWrap = styled.section`
@@ -20,6 +21,8 @@ const DefaultTaskStyle = styled.div`
 
 export function FocusDefault() {
   const { storage } = useStorage();
+  const { mouseMoveHandelr, mouseUpHandler, mouseDownHandler } =
+    useScreenDrag();
   return (
     <DefaultTaskWrap>
       <DefaultTaskStyle>{storage.taskName}</DefaultTaskStyle>
@@ -28,7 +31,13 @@ export function FocusDefault() {
         color={"black"}
         isMinutesTimer={false}
       />
-      <ScreenDrag width={24} height={20} />
+      <ScreenDrag
+        width={24}
+        height={20}
+        mouseMoveHandelr={mouseMoveHandelr}
+        mouseUpHandler={mouseUpHandler}
+        mouseDownHandler={mouseDownHandler}
+      />
     </DefaultTaskWrap>
   );
 }

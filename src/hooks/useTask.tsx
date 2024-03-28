@@ -32,7 +32,6 @@ function useTask() {
   const [countDown, setCountDown] = useState();
   const [storage, setStorage] = useLocalStorage("task", task);
 
-  // const { ipcRenderer } = window.require("electron");
   useEffect(() => {
     // if (!storage?.taskName)
     setStorage(task);

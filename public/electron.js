@@ -139,6 +139,7 @@ var appReady = function () {
     mainWindow === null || mainWindow === void 0 ? void 0 : mainWindow.webContents.once("dom-ready", function () {
         showWindow();
     });
+    mainWindow === null || mainWindow === void 0 ? void 0 : mainWindow.isDestroyed();
 };
 electron_1.app.whenReady().then(appReady).then(screenHandler);
 electron_1.app.on("activate", function () {

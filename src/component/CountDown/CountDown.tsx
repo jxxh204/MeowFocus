@@ -1,6 +1,5 @@
 import { useEffect, useRef } from "react";
 import useCountDown from "./useCountDown";
-import CircularProgress from "./CircularProgress";
 import CanvasCircular from "./CanvasCircular";
 
 type Props = {
