@@ -4,11 +4,13 @@ import CircularProgress from "./CircularProgress";
 import CanvasCircular from "./CanvasCircular";
 
 type Props = {
-  count: number;
+  countMinutes: number;
+  color: string;
+  isMinutesTimer: boolean;
 };
 
-function CountDown({ count }: Props) {
-  const { remainingTime, startCount, setTime } = useCountDown(count);
+function CountDown({ countMinutes, color, isMinutesTimer }: Props) {
+  const { remainingTime, startCount, setTime } = useCountDown(countMinutes);
   useEffect(() => {
     setTime();
     startCount();
@@ -16,19 +18,17 @@ function CountDown({ count }: Props) {
 
   return (
     <>
-      <CircularProgress
-        size={50}
-        strokeWidth={25}
-        percentage={remainingTime.progress}
-      />
-      <p>
-        {remainingTime.minute} : {remainingTime.second}
-      </p>
       <CanvasCircular
         size={50}
         strokeWidth={25}
+        color={color}
         percentage={remainingTime.progress}
       />
+      {isMinutesTimer ? (
+        <p>
+          {remainingTime.minute} : {remainingTime.second}
+        </p>
+      ) : null}
     </>
   );
 }

@@ -3,6 +3,9 @@ import { useStorage } from "context/TaskContext";
 import styled from "styled-components";
 const DefaultTaskWrap = styled.section`
   width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: ${({ theme }) => theme.size.gap};
 `;
 
 const DefaultTaskStyle = styled.div`
@@ -11,6 +14,7 @@ const DefaultTaskStyle = styled.div`
   background: #272727;
   color: white;
   padding: 12px 8px;
+  width: 100%;
 `;
 
 export function FocusDefault() {
@@ -18,7 +22,11 @@ export function FocusDefault() {
   return (
     <DefaultTaskWrap>
       <DefaultTaskStyle>{storage.taskName}</DefaultTaskStyle>
-      <CountDown count={storage.timer} />
+      <CountDown
+        countMinutes={storage.timer}
+        color={"black"}
+        isMinutesTimer={false}
+      />
     </DefaultTaskWrap>
   );
 }
