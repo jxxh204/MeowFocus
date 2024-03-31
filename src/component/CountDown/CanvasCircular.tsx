@@ -20,7 +20,9 @@ const CanvasCircular: React.FC<CanvasCircularProps> = ({
     const context = canvas?.getContext("2d");
 
     if (context && canvas) {
-      const ratio = window.devicePixelRatio || 1;
+      const ratio = 2;
+      // window.devicePixelRatio
+
       canvas.width = size * ratio;
       canvas.height = size * ratio;
       context.scale(ratio, ratio);

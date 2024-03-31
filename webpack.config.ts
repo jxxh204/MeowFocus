@@ -4,11 +4,11 @@ const path = require("path");
 // CommonJS 방식의 모듈 내보내기
 module.exports = {
   // 엔트리 파일 설정
-  entry: "./src/index.js",
+  entry: "./src/index.mjs",
   // 아웃풋 파일 출력 설정
   output: {
     // 파일 이름
-    filename: "main.js",
+    filename: "main.mjs",
     // 경로
     path: path.resolve(__dirname, "./dist"),
   },
